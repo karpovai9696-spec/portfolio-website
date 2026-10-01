@@ -1,0 +1,38 @@
+version: v2
+title: Визитка — Михаил Карпов, Full Stack Developer
+size: [720, 1280]
+customFonts:
+  - family: Russo One
+    src: "https://fonts.googleapis.com/css2?family=Russo+One"
+  - family: Manrope
+    src: "https://fonts.googleapis.com/css2?family=Manrope"
+  - family: JetBrains Mono
+    src: "https://fonts.googleapis.com/css2?family=JetBrains+Mono"
+theme:
+  colors:
+    bg: "#0A0C14"
+    card: "#12151F"
+    border: "#262C40"
+    primary: "#3B82F6"
+    accent: "#8B5CF6"
+    text: "#F1F5F9"
+    muted: "#94A3B8"
+    soft: "#CBD5E1"
+  textStyles:
+    label:
+      fontFamily: JetBrains Mono
+      fontSize: 14
+      color: "$primary"
+      letterSpacing: 4
+    name:
+      fontFamily: Russo One
+      fontSize: 46
+      color: "$text"
+      letterSpacing: 2
+    body:
+      fontFamily: Manrope
+      fontSize: 18
+      color: "$soft"
+      lineHeight: 1.6
+pages:
+  - pages/1_card.page

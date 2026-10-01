@@ -1,0 +1,228 @@
+pageType: content
+background:
+  type: solid
+  color: "$bg"
+elements:
+  # ---- фоновые градиентные пятна (bleed за края — by design) ----
+  - elementId: blob-blue
+    elementType: shape
+    bounds: [-160, -160, 520, 520]
+    shapeName: ellipse
+    fill:
+      type: gradient
+      gradientType: radial
+      stops:
+        - {position: 0, color: "#3B82F638"}
+        - {position: 1, color: "#3B82F600"}
+  - elementId: blob-violet
+    elementType: shape
+    bounds: [330, 880, 560, 560]
+    shapeName: ellipse
+    fill:
+      type: gradient
+      gradientType: radial
+      stops:
+        - {position: 0, color: "#8B5CF638"}
+        - {position: 1, color: "#8B5CF600"}
+  - elementId: blob-mid
+    elementType: shape
+    bounds: [430, 300, 380, 380]
+    shapeName: ellipse
+    fill:
+      type: gradient
+      gradientType: radial
+      stops:
+        - {position: 0, color: "#8B5CF620"}
+        - {position: 1, color: "#8B5CF600"}
+
+  # ---- верхняя техно-плашка ----
+  - elementId: top-label
+    elementType: text
+    bounds: [40, 52, 640, 24]
+    content:
+      style: "$label"
+      align: [center, middle]
+      wrap: false
+      text: "// ФРИЛАНС · ВЕБ-РАЗРАБОТКА"
+
+  # ---- фото в градиентном кольце ----
+  - elementId: photo-ring
+    elementType: shape
+    bounds: [196, 116, 328, 328]
+    shapeName: ellipse
+    fill:
+      type: gradient
+      gradientType: linear
+      angle: 135
+      stops:
+        - {position: 0, color: "$primary"}
+        - {position: 1, color: "$accent"}
+    shadow: {blur: 30, color: "#3B82F655", offset: [0, 8]}
+  - elementId: photo
+    elementType: image
+    bounds: [208, 128, 304, 304]
+    src: media/photo.jpg
+    fit: {mode: cover}
+    cropShape: {shapeName: ellipse}
+
+  # ---- имя и роль ----
+  - elementId: name
+    elementType: text
+    bounds: [40, 486, 640, 62]
+    content:
+      style: "$name"
+      align: [center, middle]
+      wrap: false
+      text: МИХАИЛ КАРПОВ
+  - elementId: role
+    elementType: text
+    bounds: [40, 556, 640, 36]
+    content:
+      fontFamily: Manrope
+      fontSize: 23
+      bold: true
+      align: [center, middle]
+      wrap: false
+      gradient:
+        type: gradient
+        gradientType: linear
+        angle: 0
+        stops:
+          - {position: 0, color: "#60A5FA"}
+          - {position: 1, color: "#A78BFA"}
+      text: Full Stack Developer
+
+  # ---- разделитель ----
+  - elementId: divider
+    elementType: shape
+    bounds: [300, 616, 120, 3]
+    shapeName: roundRect
+    adjustments: [50000]
+    fill:
+      type: gradient
+      gradientType: linear
+      angle: 0
+      stops:
+        - {position: 0, color: "$primary"}
+        - {position: 1, color: "$accent"}
+
+  # ---- услуги ----
+  - elementId: services-label
+    elementType: text
+    bounds: [40, 654, 640, 22]
+    content:
+      style: "$label"
+      fontSize: 13
+      align: [center, middle]
+      wrap: false
+      text: ЧТО Я ДЕЛАЮ
+  - elementId: services-list
+    elementType: text
+    bounds: [110, 690, 500, 152]
+    content:
+      style: "$body"
+      fontSize: 19
+      lineHeight: 1.9
+      align: [center, top]
+      text: |
+        <p>Лендинги и сайты-визитки</p>
+        <p>Веб-приложения на Vue / React</p>
+        <p>Интернет-магазины</p>
+        <p>Доработка и поддержка проектов</p>
+
+  # ---- карточка контактов ----
+  - elementId: contacts-card
+    elementType: shape
+    bounds: [70, 878, 580, 232]
+    shapeName: roundRect
+    adjustments: [9000]
+    fill: {type: solid, color: "$card"}
+    border: {style: solid, width: 1, color: "$border"}
+
+  - elementId: icon-tg
+    elementType: icon
+    bounds: [104, 910, 22, 22]
+    iconName: "fab:telegram"
+    fill: {type: solid, color: "#60A5FA"}
+  - elementId: text-tg
+    elementType: text
+    bounds: [144, 906, 480, 30]
+    content:
+      style: "$body"
+      fontSize: 17
+      align: [left, middle]
+      wrap: false
+      text: |
+        <p>Telegram — <strong>@Phoenix9696</strong></p>
+
+  - elementId: icon-phone
+    elementType: icon
+    bounds: [104, 962, 22, 22]
+    iconName: "fas:phone"
+    fill: {type: solid, color: "#60A5FA"}
+  - elementId: text-phone
+    elementType: text
+    bounds: [144, 958, 480, 30]
+    content:
+      style: "$body"
+      fontSize: 17
+      align: [left, middle]
+      wrap: false
+      text: 8 909 308-77-67
+
+  - elementId: icon-mail
+    elementType: icon
+    bounds: [104, 1014, 22, 22]
+    iconName: "fas:envelope"
+    fill: {type: solid, color: "#60A5FA"}
+  - elementId: text-mail
+    elementType: text
+    bounds: [144, 1010, 480, 30]
+    content:
+      style: "$body"
+      fontSize: 17
+      align: [left, middle]
+      wrap: false
+      text: mikhail.karpov.03@internet.ru
+
+  - elementId: icon-site
+    elementType: icon
+    bounds: [104, 1066, 22, 22]
+    iconName: "fas:globe"
+    fill: {type: solid, color: "#60A5FA"}
+  - elementId: text-site
+    elementType: text
+    bounds: [144, 1062, 480, 30]
+    content:
+      style: "$body"
+      fontSize: 17
+      align: [left, middle]
+      wrap: false
+      text: yq2no6cpbdyom.kimi.page
+
+  # ---- QR-код на сайт ----
+  - elementId: qr-card
+    elementType: shape
+    bounds: [86, 1140, 116, 116]
+    shapeName: roundRect
+    adjustments: [10000]
+    fill: {type: solid, color: "#FFFFFF"}
+    shadow: {blur: 18, color: "#3B82F633", offset: [0, 6]}
+  - elementId: qr-image
+    elementType: image
+    bounds: [94, 1148, 100, 100]
+    src: media/qr.png
+    fit: {mode: fill}
+  - elementId: qr-caption
+    elementType: text
+    bounds: [226, 1152, 430, 96]
+    content:
+      fontFamily: Manrope
+      fontSize: 18
+      bold: true
+      color: "$text"
+      lineHeight: 1.4
+      align: [left, middle]
+      text: |
+        <p>Наведите камеру —</p>
+        <p>откроется моё <span style="color:#A78BFA">сайт-портфолио</span></p>
