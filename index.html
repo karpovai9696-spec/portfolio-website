@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- SEO -->
+    <title>Михаил Карпов — Full Stack Developer | Разработка сайтов и веб-приложений</title>
+    <meta
+      name="description"
+      content="Михаил Карпов — Full Stack Developer из Казани. Разработка лендингов, веб-приложений на Vue 3 и React, интернет-магазинов, интеграции с API и CRM. Фриланс, удалённая работа."
+    />
+    <meta
+      name="keywords"
+      content="фрилансер, веб-разработчик, full stack developer, Vue 3, React, TypeScript, заказать сайт, разработка веб-приложений, Казань"
+    />
+    <meta name="author" content="Михаил Карпов" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Михаил Карпов — Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Разработка современных веб-приложений на Vue.js и React. Лендинги, SPA, интернет-магазины, интеграции с API."
+    />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:image" content="/images/photo.jpg" />
+
+    <!-- Фон до загрузки CSS, чтобы не было белой вспышки -->
+    <style>
+      html {
+        background: #070a12;
+      }
+      html:not(.dark) {
+        background: #f8fafc;
+      }
+    </style>
+
+    <!-- Тема оформления: применяем до отрисовки, чтобы не было мигания -->
+    <script>
+      ;(function () {
+        try {
+          var theme = localStorage.getItem('theme')
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark')
+          } else {
+            document.documentElement.classList.add('dark')
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
