@@ -27,17 +27,17 @@ function letterIndex(wordIndex: number, charIndex: number): number {
 }
 
 /* ---------- Видео-фон Hero ----------
-   - reduced-motion или save-data → только poster (без autoplay);
-   - светлая тема → видео скрыто и поставлено на паузу (остаётся aurora). */
+   - save-data → только poster (без autoplay);
+   - светлая тема → видео скрыто и поставлено на паузу (остаётся aurora);
+   - фон спокойный (без вспышек), поэтому играет и при prefers-reduced-motion —
+     это осознанное решение владельца сайта-портфолио. */
 const videoEl = ref<HTMLVideoElement | null>(null)
 const isDarkTheme = ref(true)
-const reducedMotion =
-  typeof window !== 'undefined' &&
-  (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false)
+const baseUrl = import.meta.env.BASE_URL
 const saveData =
   typeof navigator !== 'undefined' &&
   Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
-const videoEnabled = !reducedMotion && !saveData
+const videoEnabled = !saveData
 
 let themeObserver: MutationObserver | null = null
 
@@ -134,14 +134,14 @@ function scrollToContact() {
       loop
       playsinline
       preload="metadata"
-      poster="/videos/hero-poster.jpg"
+      :poster="`${baseUrl}videos/hero-poster.jpg`"
       aria-hidden="true"
     >
-      <source src="/videos/hero-bg.mp4" type="video/mp4" />
+      <source :src="`${baseUrl}videos/hero-bg.mp4`" type="video/mp4" />
     </video>
     <img
       v-else-if="isDarkTheme"
-      src="/videos/hero-poster.jpg"
+      :src="`${baseUrl}videos/hero-poster.jpg`"
       alt=""
       class="absolute inset-0 h-full w-full object-cover"
       aria-hidden="true"
