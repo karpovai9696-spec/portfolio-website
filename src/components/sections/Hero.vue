@@ -26,6 +26,21 @@ function letterIndex(wordIndex: number, charIndex: number): number {
   return offset + charIndex
 }
 
+/* ---------- Видео-фон Hero ----------
+   - reduced-motion или save-data → только poster (без autoplay);
+   - светлая тема → видео скрыто и поставлено на паузу (остаётся aurora). */
+const videoEl = ref<HTMLVideoElement | null>(null)
+const isDarkTheme = ref(true)
+const reducedMotion =
+  typeof window !== 'undefined' &&
+  (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false)
+const saveData =
+  typeof navigator !== 'undefined' &&
+  Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
+const videoEnabled = !reducedMotion && !saveData
+
+let themeObserver: MutationObserver | null = null
+
 /* ---------- Эффект печатающегося текста ---------- */
 const phrases = ['Лендинги', 'Веб-приложения', 'Интернет-магазины', 'SPA на Vue/React']
 const typed = ref('')
@@ -65,6 +80,24 @@ onMounted(() => {
   if (reduced) lettersIn.value = true
   else schedule(() => (lettersIn.value = true), 120)
 
+  // Видео-фон: пауза/возобновление при переключении темы
+  isDarkTheme.value = document.documentElement.classList.contains('dark')
+  themeObserver = new MutationObserver(() => {
+    isDarkTheme.value = document.documentElement.classList.contains('dark')
+    if (!videoEl.value || !videoEnabled) return
+    if (isDarkTheme.value) {
+      void videoEl.value.play().catch(() => {
+        /* autoplay заблокирован — остаётся poster */
+      })
+    } else {
+      videoEl.value.pause()
+    }
+  })
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+
   if (reduced) {
     typed.value = phrases[1]
     return
@@ -75,6 +108,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
   cancelled = true
   if (timer) clearTimeout(timer)
+  themeObserver?.disconnect()
+  themeObserver = null
 })
 
 function scrollToContact() {
@@ -88,21 +123,55 @@ function scrollToContact() {
     class="relative flex min-h-screen flex-col overflow-hidden"
     aria-label="Приветствие"
   >
-    <!-- Анимированный aurora / gradient-mesh фон -->
+    <!-- Видео-фон: зацикленные световые ленты (самый нижний слой сцены, только тёмная тема) -->
+    <video
+      v-if="videoEnabled"
+      v-show="isDarkTheme"
+      ref="videoEl"
+      class="absolute inset-0 h-full w-full object-cover"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="/videos/hero-poster.jpg"
+      aria-hidden="true"
+    >
+      <source src="/videos/hero-bg.mp4" type="video/mp4" />
+    </video>
+    <img
+      v-else-if="isDarkTheme"
+      src="/videos/hero-poster.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover"
+      aria-hidden="true"
+    />
+
+    <!-- Анимированный aurora / gradient-mesh фон (в тёмной теме приглушён — видео уже даёт свечение) -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
       <div class="bg-grid absolute inset-0" />
       <div
-        class="absolute -left-32 top-1/4 h-[26rem] w-[26rem] animate-aurora rounded-full bg-primary/25 blur-3xl dark:bg-primary/20"
+        class="absolute -left-32 top-1/4 h-[26rem] w-[26rem] animate-aurora rounded-full bg-primary/25 blur-3xl dark:bg-primary/10"
       />
       <div
-        class="absolute -right-32 top-1/2 h-[30rem] w-[30rem] animate-aurora-reverse rounded-full bg-accent/25 blur-3xl dark:bg-accent/20"
+        class="absolute -right-32 top-1/2 h-[30rem] w-[30rem] animate-aurora-reverse rounded-full bg-accent/25 blur-3xl dark:bg-accent/10"
       />
       <div
-        class="absolute bottom-0 left-1/3 h-80 w-80 animate-aurora rounded-full bg-sky-400/20 blur-3xl [animation-delay:-6s] dark:bg-sky-500/15"
+        class="absolute bottom-0 left-1/3 h-80 w-80 animate-aurora rounded-full bg-sky-400/20 blur-3xl [animation-delay:-6s] dark:bg-sky-500/[0.07]"
       />
       <div
-        class="absolute right-1/4 top-10 h-64 w-64 animate-aurora-reverse rounded-full bg-fuchsia-400/15 blur-3xl [animation-delay:-11s] dark:bg-fuchsia-500/10"
+        class="absolute right-1/4 top-10 h-64 w-64 animate-aurora-reverse rounded-full bg-fuchsia-400/15 blur-3xl [animation-delay:-11s] dark:bg-fuchsia-500/[0.06]"
       />
+    </div>
+
+    <!-- Затемняющий оверлей поверх видео (только тёмная тема): общее затемнение + градиент книзу -->
+    <div
+      v-show="isDarkTheme"
+      class="pointer-events-none absolute inset-0"
+      aria-hidden="true"
+    >
+      <div class="absolute inset-0 bg-ink-950/45" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink-950/30 via-ink-950/40 to-ink-950" />
     </div>
 
     <!-- WebGL-поле частиц (только тёмная тема; поверх aurora, под контентом) -->
