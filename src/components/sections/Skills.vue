@@ -43,9 +43,9 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
 
 const labelColors: Record<string, string> = {
   Expert: 'text-green-500 dark:text-green-400',
-  Advanced: 'text-primary',
+  Advanced: 'text-primary dark:text-[#e8703c]',
   Intermediate: 'text-amber-500 dark:text-amber-400',
-  Basic: 'text-slate-500 dark:text-slate-400',
+  Basic: 'text-ink-100 dark:text-[#A39B8B]',
 }
 </script>
 
@@ -78,7 +78,7 @@ const labelColors: Record<string, string> = {
             <li
               v-for="item in category.items"
               :key="item"
-              class="rounded-lg border border-slate-200/80 bg-white/60 px-3 py-1.5 text-sm font-medium text-slate-600 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary hover:shadow-md hover:shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:border-primary/50 dark:hover:text-primary"
+              class="rounded-lg border border-hairline bg-paper-raised px-3 py-1.5 text-sm font-medium text-ink-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary hover:shadow-md hover:shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:text-[#A39B8B] dark:hover:border-primary/50 dark:hover:text-primary"
             >
               {{ item }}
             </li>
@@ -102,13 +102,13 @@ const labelColors: Record<string, string> = {
                 <span class="font-semibold" :class="labelColors[skill.label]">
                   {{ skill.label }}
                 </span>
-                <span class="ml-2 tabular-nums text-slate-400 dark:text-slate-500">
+                <span class="ml-2 tabular-nums text-ink-50 dark:text-[#A39B8B]">
                   {{ displayedPercents[i] }}%
                 </span>
               </span>
             </div>
             <div
-              class="h-2.5 overflow-hidden rounded-full bg-slate-200 dark:bg-slate-800"
+              class="h-2.5 overflow-hidden rounded-full bg-hairline dark:bg-ink-800"
               role="progressbar"
               :aria-valuenow="skill.level"
               aria-valuemin="0"
@@ -116,11 +116,11 @@ const labelColors: Record<string, string> = {
               :aria-label="`Уровень владения ${skill.name}: ${skill.level}%`"
             >
               <div
-                class="skill-bar-fill relative h-full rounded-full bg-gradient-to-r from-primary to-accent"
+                class="skill-bar-fill relative h-full rounded-full bg-primary"
                 :style="{ '--skill-level': `${skill.level}%` }"
               >
                 <span
-                  class="absolute inset-y-0 right-0 w-8 bg-gradient-to-r from-transparent to-white/30"
+                  class="absolute inset-y-0 right-0 w-8 bg-gradient-to-r from-transparent to-paper-raised/40"
                   aria-hidden="true"
                 />
               </div>

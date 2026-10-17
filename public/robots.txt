@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://yq2no6cpbdyom.kimi.page/sitemap.xml

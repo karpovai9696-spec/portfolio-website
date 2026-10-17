@@ -25,7 +25,7 @@ const { target } = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 })
       <div ref="target" class="reveal relative mx-auto max-w-3xl">
         <!-- Вертикальная линия таймлайна: прорисовывается при скролле -->
         <div
-          class="timeline-line absolute bottom-2 left-5 top-2 w-0.5 rounded-full bg-gradient-to-b from-primary via-accent to-transparent sm:left-1/2 sm:-translate-x-1/2"
+          class="timeline-line absolute bottom-2 left-5 top-2 w-0.5 rounded-full bg-gradient-to-b from-primary to-transparent sm:left-1/2 sm:-translate-x-1/2"
           aria-hidden="true"
         />
 
@@ -47,7 +47,7 @@ const { target } = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 })
                 class="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-primary/40"
               />
               <span
-                class="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-white shadow-lg shadow-primary/40"
+                class="relative flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/40"
               >
                 <Briefcase class="h-5 w-5" />
               </span>
@@ -56,12 +56,12 @@ const { target } = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 })
             <article
               class="glass rounded-2xl p-6 text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
             >
-              <p class="font-mono text-xs font-semibold uppercase tracking-wide text-primary">
+              <p class="font-mono text-xs font-semibold uppercase tracking-wide text-primary dark:text-[#e8703c]">
                 {{ item.period }}
               </p>
-              <h3 class="mt-1.5 text-lg font-bold">{{ item.role }}</h3>
-              <p class="mt-0.5 font-medium text-slate-600 dark:text-slate-300">{{ item.place }}</p>
-              <p class="mt-1 flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500">
+              <h3 class="font-display mt-1.5 text-lg font-bold">{{ item.role }}</h3>
+              <p class="mt-0.5 font-medium text-ink-700 dark:text-[#A39B8B]">{{ item.place }}</p>
+              <p class="mt-1 flex items-center gap-1.5 text-sm text-ink-50 dark:text-[#A39B8B]">
                 <MapPin class="h-3.5 w-3.5" aria-hidden="true" />
                 {{ item.location }}
               </p>
@@ -69,7 +69,7 @@ const { target } = useScrollAnimation<HTMLDivElement>({ threshold: 0.1 })
                 <li
                   v-for="point in item.points"
                   :key="point"
-                  class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-300"
+                  class="flex items-start gap-2 text-sm text-ink-700 dark:text-[#A39B8B]"
                 >
                   <CheckCircle2 class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
                   {{ point }}

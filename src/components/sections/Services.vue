@@ -42,7 +42,7 @@ function cardSpan(index: number): string {
 <template>
   <section
     id="services"
-    class="relative scroll-mt-20 overflow-hidden bg-slate-100/60 py-20 dark:bg-white/[0.02] sm:py-28"
+    class="relative scroll-mt-20 overflow-hidden bg-paper-soft py-20 dark:bg-ink-900/40 sm:py-28"
     aria-label="Услуги"
   >
     <GhostTitle text="УСЛУГИ" />
@@ -68,21 +68,21 @@ function cardSpan(index: number): string {
           <div class="relative">
             <div class="flex items-start justify-between">
               <div
-                class="inline-flex rounded-2xl bg-gradient-to-br from-primary to-accent p-3 text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                class="inline-flex rounded-2xl bg-primary p-3 text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               >
                 <component :is="iconMap[service.icon]" class="h-6 w-6" aria-hidden="true" />
               </div>
               <span
-                class="font-mono text-4xl font-bold text-slate-200 transition-colors duration-300 group-hover:text-primary/30 dark:text-white/5 dark:group-hover:text-primary/20"
+                class="font-mono text-4xl font-bold text-ink-400 transition-colors duration-300 group-hover:text-primary/40 dark:text-white/40 dark:group-hover:text-primary/50"
                 aria-hidden="true"
               >
                 {{ String(service.id).padStart(2, '0') }}
               </span>
             </div>
-            <h3 class="mt-4 text-lg font-semibold transition-colors duration-300 group-hover:text-primary">
+            <h3 class="font-display mt-4 text-lg font-semibold transition-colors duration-300 group-hover:text-primary">
               {{ service.title }}
             </h3>
-            <p class="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+            <p class="mt-2 text-sm leading-relaxed text-ink-100 dark:text-[#A39B8B]">
               {{ service.description }}
             </p>
           </div>
@@ -95,7 +95,7 @@ function cardSpan(index: number): string {
           :style="staggerStyle(services.length, 80)"
         >
           <span class="text-gradient text-lg font-semibold">Нужно что-то другое?</span>
-          <span class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+          <span class="mt-2 text-sm text-ink-100 dark:text-[#A39B8B]">
             Напишите мне — обсудим вашу задачу и подберём решение
           </span>
         </a>

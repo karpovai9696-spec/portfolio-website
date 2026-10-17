@@ -62,14 +62,14 @@ function scrollTo(event: MouseEvent, href: string) {
           :class="
             activeId === link.href.slice(1)
               ? 'text-primary'
-              : 'text-slate-600 hover:bg-slate-900/5 hover:text-primary dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-primary'
+              : 'text-ink-700 hover:bg-ink-950/5 hover:text-primary dark:text-[#A39B8B] dark:hover:bg-white/10 dark:hover:text-primary'
           "
           :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
           @click="scrollTo($event, link.href)"
         >
           {{ link.label }}
           <span
-            class="absolute inset-x-3 -bottom-0.5 hidden h-0.5 rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-70 lg:block"
+            class="absolute inset-x-3 -bottom-0.5 hidden h-0.5 rounded-full bg-primary transition-all duration-300 group-hover:scale-x-100 group-hover:opacity-70 lg:block"
             :class="activeId === link.href.slice(1) ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'"
             aria-hidden="true"
           />

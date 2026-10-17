@@ -56,13 +56,13 @@ onBeforeUnmount(() => {
     class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
     :class="
       isScrolled || isMenuOpen
-        ? 'border-b border-slate-200/60 bg-white/80 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/80'
+        ? 'border-b border-hairline bg-paper-raised/85 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/85'
         : 'bg-transparent'
     "
   >
     <!-- Прогресс-бар чтения страницы -->
     <div
-      class="absolute inset-x-0 top-0 h-0.5 origin-left bg-gradient-to-r from-primary to-accent"
+      class="absolute inset-x-0 top-0 h-0.5 origin-left bg-primary"
       :style="{ transform: `scaleX(${scrollProgress})` }"
       role="progressbar"
       :aria-valuenow="Math.round(scrollProgress * 100)"
@@ -76,11 +76,11 @@ onBeforeUnmount(() => {
       <a
         href="#hero"
         class="group flex items-center gap-2 text-lg font-bold tracking-tight"
-        aria-label="Михаил Карпов — на главную"
+        aria-label="МК Михаил Карпов — на главную"
         @click.prevent="closeMenu"
       >
         <span
-          class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent text-sm font-bold text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+          class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
           aria-hidden="true"
         >
           МК
@@ -97,7 +97,7 @@ onBeforeUnmount(() => {
         <!-- Переключатель темы -->
         <button
           type="button"
-          class="rounded-xl p-2.5 text-slate-600 transition-all duration-300 hover:rotate-12 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10"
+          class="rounded-xl p-2.5 text-ink-700 transition-all duration-300 hover:rotate-12 hover:bg-ink-950/5 dark:text-[#A39B8B] dark:hover:bg-white/10"
           :aria-label="isDark ? 'Включить светлую тему' : 'Включить тёмную тему'"
           :aria-pressed="isDark"
           @click="toggleTheme"
@@ -109,7 +109,7 @@ onBeforeUnmount(() => {
         <!-- Бургер-кнопка (мобильная) -->
         <button
           type="button"
-          class="rounded-xl p-2.5 text-slate-600 transition-colors hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10 lg:hidden"
+          class="rounded-xl p-2.5 text-ink-700 transition-colors hover:bg-ink-950/5 dark:text-[#A39B8B] dark:hover:bg-white/10 lg:hidden"
           :aria-expanded="isMenuOpen"
           aria-controls="mobile-menu"
           :aria-label="isMenuOpen ? 'Закрыть меню' : 'Открыть меню'"
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
       <div
         v-if="isMenuOpen"
         id="mobile-menu"
-        class="border-t border-slate-200/60 bg-white/95 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/95 lg:hidden"
+        class="border-t border-hairline bg-paper-raised/95 backdrop-blur-xl dark:border-white/10 dark:bg-ink-950/95 lg:hidden"
         @click="closeMenu"
       >
         <div class="section-container py-4">

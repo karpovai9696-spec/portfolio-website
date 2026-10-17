@@ -5,15 +5,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#3B82F6',
-        accent: '#8B5CF6',
-        ink: {
-          950: '#070A12',
-          900: '#0B0F1A',
-          800: '#111827',
+        // Терракотовый акцент — единственный цветовой акцент системы
+        primary: {
+          DEFAULT: '#B4491A',
+          hover: '#97380F',
+          soft: '#B4491A',
         },
+        // Приглушённая охра — вторичный акцент (только для мелких меток)
+        accent: '#8C6D1F',
+        // Тёплая бумага и чернила (editorial-палитра)
+        paper: {
+          DEFAULT: '#F5F1E8',
+          soft: '#EFEBDF',
+          raised: '#FFFCF5',
+        },
+        ink: {
+          50: '#6E6656',
+          100: '#6E6656',
+          400: '#8F8677',
+          500: '#6E6656',
+          700: '#4A443B',
+          800: '#241E15',
+          900: '#1B1610',
+          950: '#14100C',
+        },
+        hairline: '#E2DCCB',
       },
       fontFamily: {
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: [
           'Inter',
           'system-ui',
@@ -30,20 +49,6 @@ export default {
         'fade-in-up': {
           '0%': { opacity: '0', transform: 'translateY(24px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        aurora: {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '33%': { transform: 'translate(8%, -10%) scale(1.2)' },
-          '66%': { transform: 'translate(-8%, 8%) scale(0.92)' },
-        },
-        'aurora-reverse': {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '33%': { transform: 'translate(-10%, 8%) scale(1.15)' },
-          '66%': { transform: 'translate(8%, -8%) scale(0.9)' },
-        },
-        'gradient-x': {
-          '0%, 100%': { 'background-position': '0% 50%' },
-          '50%': { 'background-position': '100% 50%' },
         },
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
@@ -72,9 +77,6 @@ export default {
       },
       animation: {
         'fade-in-up': 'fade-in-up 0.7s ease-out both',
-        aurora: 'aurora 18s ease-in-out infinite',
-        'aurora-reverse': 'aurora-reverse 22s ease-in-out infinite',
-        'gradient-x': 'gradient-x 6s ease infinite',
         float: 'float 6s ease-in-out infinite',
         marquee: 'marquee 32s linear infinite',
         blink: 'blink 1.1s step-end infinite',

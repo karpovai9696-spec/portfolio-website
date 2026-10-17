@@ -21,9 +21,9 @@ const { target } = useScrollAnimation<HTMLDivElement>()
 <template>
   <div ref="target" class="reveal mb-12 text-center sm:mb-16">
     <span v-if="index && tag" class="section-badge" aria-hidden="true">
-      <span class="text-accent">//</span> {{ index }} — {{ tag }}
+      <span class="text-primary">//</span> {{ index }} — {{ tag }}
     </span>
-    <h2 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+    <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
       <span
         v-for="(word, i) in words"
         :key="`${word}-${i}`"
@@ -32,12 +32,12 @@ const { target } = useScrollAnimation<HTMLDivElement>()
     </h2>
     <p
       v-if="subtitle"
-      class="mx-auto mt-4 max-w-2xl text-base text-slate-500 dark:text-slate-400 sm:text-lg"
+      class="mx-auto mt-4 max-w-2xl text-base text-ink-100 dark:text-ink-400 sm:text-lg"
     >
       {{ subtitle }}
     </p>
     <div
-      class="section-underline mx-auto mt-6 h-1 w-24 rounded-full bg-gradient-to-r from-primary to-accent"
+      class="section-underline mx-auto mt-6 h-[3px] w-16 rounded-full bg-primary"
       aria-hidden="true"
     />
   </div>

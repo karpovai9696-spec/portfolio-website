@@ -87,7 +87,7 @@ const contacts = [
 <template>
   <section
     id="contact"
-    class="relative scroll-mt-20 overflow-hidden bg-slate-100/60 py-20 dark:bg-white/[0.02] sm:py-28"
+    class="relative scroll-mt-20 overflow-hidden bg-paper-soft py-20 dark:bg-ink-900/40 sm:py-28"
     aria-label="Контакты"
   >
     <GhostTitle text="КОНТАКТЫ" />
@@ -200,7 +200,7 @@ const contacts = [
                   Открылось окно почтового клиента — письмо готово к отправке. Спасибо!
                 </p>
 
-                <p class="text-center text-xs text-slate-400 dark:text-slate-500">
+                <p class="text-center text-xs text-ink-50 dark:text-[#A39B8B]">
                   Форма откроет ваш почтовый клиент с заполненным письмом
                 </p>
               </div>
@@ -214,7 +214,7 @@ const contacts = [
             :href="person.telegram"
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-accent bg-[length:150%_150%] px-6 py-5 text-lg font-bold text-white shadow-xl shadow-primary/30 transition-all duration-500 hover:-translate-y-1 hover:bg-[position:100%_50%] hover:shadow-2xl hover:shadow-primary/40"
+            class="group flex items-center justify-center gap-3 rounded-2xl bg-primary px-6 py-5 text-lg font-bold text-white shadow-xl shadow-primary/30 transition-all duration-500 hover:-translate-y-1 hover:bg-primary-hover hover:shadow-2xl hover:shadow-primary/30"
           >
             <Send
               class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
@@ -231,14 +231,14 @@ const contacts = [
                 class="group/item flex items-center gap-4"
               >
                 <span
-                  class="rounded-xl bg-primary/10 p-3 text-primary transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-gradient-to-br group-hover/item:from-primary group-hover/item:to-accent group-hover/item:text-white"
+                  class="rounded-xl bg-primary/10 p-3 text-primary transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-primary group-hover/item:text-white"
                   aria-hidden="true"
                 >
                   <component :is="contact.icon" class="h-5 w-5" />
                 </span>
                 <div>
                   <p
-                    class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500"
+                    class="text-xs font-medium uppercase tracking-wide text-ink-50 dark:text-[#A39B8B]"
                   >
                     {{ contact.label }}
                   </p>

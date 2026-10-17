@@ -29,10 +29,10 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <footer class="border-t border-slate-200/60 py-10 dark:border-white/10">
+  <footer class="border-t border-hairline py-10 dark:border-white/10">
     <div class="section-container">
       <div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-        <p class="text-sm text-slate-500 dark:text-slate-400">
+        <p class="text-sm text-ink-100 dark:text-[#A39B8B]">
           © 2026 {{ person.name }}. Все права защищены.
         </p>
 
@@ -42,21 +42,21 @@ onBeforeUnmount(() => {
             :href="person.telegram"
             target="_blank"
             rel="noopener noreferrer"
-            class="rounded-xl p-2.5 text-slate-500 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-slate-400"
+            class="rounded-xl p-2.5 text-ink-100 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-[#A39B8B]"
             aria-label="Telegram"
           >
             <Send class="h-5 w-5" aria-hidden="true" />
           </a>
           <a
             :href="`mailto:${person.email}`"
-            class="rounded-xl p-2.5 text-slate-500 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-slate-400"
+            class="rounded-xl p-2.5 text-ink-100 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-[#A39B8B]"
             aria-label="Email"
           >
             <Mail class="h-5 w-5" aria-hidden="true" />
           </a>
           <a
             :href="person.phoneHref"
-            class="rounded-xl p-2.5 text-slate-500 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-slate-400"
+            class="rounded-xl p-2.5 text-ink-100 transition-all hover:-translate-y-0.5 hover:bg-primary/10 hover:text-primary dark:text-[#A39B8B]"
             aria-label="Телефон"
           >
             <Phone class="h-5 w-5" aria-hidden="true" />
@@ -77,7 +77,7 @@ onBeforeUnmount(() => {
       <button
         v-if="showBackToTop"
         type="button"
-        class="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-primary to-accent px-4 py-3 text-sm font-semibold text-white shadow-xl shadow-primary/30 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40"
+        class="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-2xl bg-primary px-4 py-3 text-sm font-semibold text-white shadow-xl shadow-primary/30 transition-transform duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/40"
         aria-label="Вернуться наверх страницы"
         @click="scrollToTop"
       >

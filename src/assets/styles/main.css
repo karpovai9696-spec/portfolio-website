@@ -11,11 +11,11 @@
   }
 
   body {
-    @apply font-sans;
+    @apply bg-paper font-sans text-ink-700 antialiased dark:bg-ink-950 dark:text-[#C9C2B4];
   }
 
   ::selection {
-    @apply bg-primary/30 text-inherit;
+    @apply bg-primary/20 text-inherit;
   }
 
   /* Кастомный скроллбар */
@@ -23,43 +23,46 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100 dark:bg-ink-950;
+    @apply bg-paper-soft dark:bg-ink-950;
   }
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-slate-300 dark:bg-slate-700;
+    @apply rounded-full bg-ink-50 dark:bg-ink-700;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gradient-to-b from-primary to-accent;
+    @apply bg-primary;
   }
 
   /* Доступные focus-стили */
   :focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-slate-50 dark:ring-offset-ink-950;
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-paper dark:ring-offset-ink-950;
   }
 }
 
 /* ===================== Компоненты ===================== */
 
 @layer components {
-  /* Glassmorphism-карточка */
+  /* Карточка: плотная бумажная поверхность с hairline-бордером (без glassmorphism) */
   .glass {
-    @apply border border-slate-200/70 bg-white/70 shadow-lg shadow-slate-900/5 backdrop-blur-xl;
+    @apply border border-hairline bg-paper-raised shadow-[0_1px_2px_rgba(20,16,12,0.05)];
   }
   .dark .glass {
-    @apply border-white/10 bg-white/[0.04] shadow-black/30;
+    @apply border-white/10 bg-ink-900 shadow-none;
   }
 
-  /* Градиентный текст */
+  /* Акцентный текст — сплошная терракота, без градиента */
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+    @apply text-primary;
+  }
+  .dark .text-gradient {
+    color: #e8703c;
   }
 
-  /* Анимированная градиентная рамка */
+  /* Сплошная акцентная рамка */
   .gradient-border {
     position: relative;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    padding: 3px;
-    border-radius: 1.5rem;
+    background: #b4491a;
+    padding: 2px;
+    border-radius: 1rem;
   }
 
   /* Контейнер секции */
@@ -69,17 +72,17 @@
 
   /* Mono-плашка заголовка секции */
   .section-badge {
-    @apply inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-xs font-medium tracking-wider text-primary dark:bg-primary/10;
+    @apply inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 font-mono text-xs font-medium tracking-wider text-primary dark:bg-primary/10 dark:text-[#e8703c];
   }
 }
 
 /* ===================== Фоновые эффекты ===================== */
 
-/* Тонкая сетка поверх тёмного фона */
+/* Тонкая сетка поверх фона — тёплые линии */
 .bg-grid {
   background-image:
-    linear-gradient(to right, rgb(148 163 184 / 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(148 163 184 / 0.07) 1px, transparent 1px);
+    linear-gradient(to right, rgb(110 102 86 / 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(110 102 86 / 0.08) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 75%);
@@ -87,11 +90,11 @@
 
 .dark .bg-grid {
   background-image:
-    linear-gradient(to right, rgb(148 163 184 / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(148 163 184 / 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgb(143 134 119 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(143 134 119 / 0.06) 1px, transparent 1px);
 }
 
-/* Свечение, следующее за курсором */
+/* Свечение, следующее за курсором — тёплое терракотовое */
 .cursor-glow {
   position: fixed;
   top: 0;
@@ -103,8 +106,8 @@
   z-index: 5;
   background: radial-gradient(
     circle,
-    rgb(59 130 246 / 0.1) 0%,
-    rgb(139 92 246 / 0.06) 40%,
+    rgb(180 73 26 / 0.09) 0%,
+    rgb(180 73 26 / 0.05) 40%,
     transparent 70%
   );
   will-change: transform;
@@ -120,8 +123,7 @@
   pointer-events: none;
   background: radial-gradient(
     320px circle at var(--mx, 50%) var(--my, 50%),
-    rgb(59 130 246 / 0.14),
-    rgb(139 92 246 / 0.08) 45%,
+    rgb(180 73 26 / 0.1),
     transparent 70%
   );
 }
@@ -254,14 +256,14 @@
 .field-ring {
   border-radius: 0.85rem;
   padding: 1.5px;
-  background: theme('colors.slate.200');
+  background: theme('colors.hairline');
   transition: background 0.3s ease;
 }
 .dark .field-ring {
-  background: rgb(255 255 255 / 0.1);
+  background: rgb(255 255 255 / 0.12);
 }
 .field-ring:focus-within {
-  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  background: #b4491a;
 }
 
 .field-ring > .field-inner {
@@ -274,9 +276,13 @@
   left: 1rem;
   top: 0.95rem;
   font-size: 0.875rem;
-  color: theme('colors.slate.400');
+  color: theme('colors.ink.50');
   pointer-events: none;
   transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark .floating-label {
+  color: #a39b8b;
 }
 
 .peer:focus ~ .floating-label,
@@ -285,10 +291,10 @@
   left: 0.85rem;
   font-size: 0.72rem;
   font-weight: 600;
-  color: theme('colors.primary');
+  color: theme('colors.primary.DEFAULT');
   padding: 0 0.35rem;
   border-radius: 0.375rem;
-  background: white;
+  background: theme('colors.paper.raised');
 }
 .dark .peer:focus ~ .floating-label,
 .dark .peer:not(:placeholder-shown) ~ .floating-label {
@@ -341,11 +347,11 @@
 /* Контурный текст второй строки имени в Hero */
 .hero-outline {
   color: transparent;
-  -webkit-text-stroke: 2px rgb(15 23 42 / 0.78);
+  -webkit-text-stroke: 2px rgb(25 21 18 / 0.8);
 }
 
 .dark .hero-outline {
-  -webkit-text-stroke: 2px rgb(226 232 240 / 0.85);
+  -webkit-text-stroke: 2px rgb(241 235 223 / 0.85);
 }
 
 /* Ghost-заголовок секции */
@@ -355,20 +361,21 @@
   left: 0;
   right: 0;
   text-align: center;
+  font-family: 'Playfair Display', Georgia, serif;
   font-size: clamp(4rem, 13vw, 10.5rem);
   font-weight: 900;
   line-height: 1;
   letter-spacing: 0.04em;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgb(100 116 139 / 0.16);
+  -webkit-text-stroke: 1.5px rgb(110 102 86 / 0.2);
   user-select: none;
   pointer-events: none;
   will-change: transform;
 }
 
 .dark .ghost-title {
-  -webkit-text-stroke: 1.5px rgb(148 163 184 / 0.13);
+  -webkit-text-stroke: 1.5px rgb(143 134 119 / 0.14);
 }
 
 /* ===================== Текстура и ссылки ===================== */
@@ -388,9 +395,9 @@
   opacity: 0.04;
 }
 
-/* Hover-ссылки: underline-заливка градиентом */
+/* Hover-ссылки: сплошное терракотовое подчёркивание */
 .link-underline {
-  background-image: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  background-image: linear-gradient(90deg, #b4491a, #b4491a);
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 2px;

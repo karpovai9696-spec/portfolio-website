@@ -14,17 +14,17 @@ const marqueeItems = computed(() => [...technologies.value, ...technologies.valu
 
 <template>
   <div
-    class="marquee border-y border-slate-200/60 bg-white/40 py-5 backdrop-blur-sm dark:border-white/5 dark:bg-white/[0.02]"
+    class="marquee border-y border-hairline bg-paper-raised/70 py-5 dark:border-white/5 dark:bg-ink-900/40"
     aria-hidden="true"
   >
     <div class="marquee-track items-center gap-8 pr-8">
       <span
         v-for="(tech, i) in marqueeItems"
         :key="`${tech}-${i}`"
-        class="flex items-center gap-8 whitespace-nowrap font-mono text-sm font-medium tracking-wide text-slate-400 transition-colors hover:text-primary dark:text-slate-500 dark:hover:text-primary"
+        class="flex items-center gap-8 whitespace-nowrap font-mono text-sm font-medium tracking-wide text-ink-50 transition-colors hover:text-primary dark:text-[#A39B8B] dark:hover:text-[#e8703c]"
       >
         {{ tech }}
-        <span class="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-primary to-accent" />
+        <span class="h-1.5 w-1.5 rounded-full bg-primary" />
       </span>
     </div>
   </div>

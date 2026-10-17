@@ -31,7 +31,7 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
         <div ref="photoBlock" class="reveal-left mx-auto w-full max-w-sm lg:col-span-2">
           <div ref="photoParallax" class="will-change-transform">
             <div class="gradient-border">
-              <div class="overflow-hidden rounded-[1.35rem] bg-slate-200 dark:bg-slate-800">
+              <div class="overflow-hidden rounded-[1.35rem] bg-hairline dark:bg-ink-800">
               <img
                 :src="person.photo"
                 :alt="`Фотография — ${person.name}`"
@@ -49,18 +49,18 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
             <ul class="relative space-y-3 text-sm">
               <li class="flex items-center gap-3">
                 <Cake class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-slate-500 dark:text-slate-400">Возраст:</span>
-                <span class="ml-auto font-medium">{{ person.age }} года</span>
+                <span class="text-ink-100 dark:text-[#A39B8B]">Возраст:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.age }} года</span>
               </li>
               <li class="flex items-center gap-3">
                 <MapPin class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-slate-500 dark:text-slate-400">Город:</span>
-                <span class="ml-auto font-medium">{{ person.city }}</span>
+                <span class="text-ink-100 dark:text-[#A39B8B]">Город:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.city }}</span>
               </li>
               <li class="flex items-center gap-3">
                 <Languages class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-slate-500 dark:text-slate-400">Языки:</span>
-                <span class="ml-auto font-medium">{{ person.languages }}</span>
+                <span class="text-ink-100 dark:text-[#A39B8B]">Языки:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.languages }}</span>
               </li>
             </ul>
           </Card>
@@ -69,11 +69,11 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
         <!-- Текст -->
         <div ref="textBlock" class="reveal-right lg:col-span-3">
           <h3 class="text-2xl font-bold">
-            {{ person.role }} <span class="text-slate-400 dark:text-slate-500">/</span>
+            {{ person.role }} <span class="text-ink-50 dark:text-[#A39B8B]">/</span>
             <span class="text-gradient">Фрилансер</span>
           </h3>
 
-          <div class="mt-5 space-y-4 leading-relaxed text-slate-600 dark:text-slate-300">
+          <div class="mt-5 space-y-4 leading-relaxed text-ink-700 dark:text-[#C9C2B4]">
             <p v-for="(paragraph, i) in person.aboutText" :key="i">{{ paragraph }}</p>
           </div>
 
@@ -83,7 +83,7 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
             <li
               v-for="(quality, i) in person.qualities"
               :key="quality"
-              class="reveal-child flex items-center gap-2.5 rounded-xl border border-slate-200/70 bg-white/50 px-4 py-3 text-sm font-medium transition-colors hover:border-primary/40 dark:border-white/10 dark:bg-white/5"
+              class="reveal-child flex items-center gap-2.5 rounded-xl border border-hairline bg-paper-raised px-4 py-3 text-sm font-medium transition-colors hover:border-primary/40 dark:border-white/10 dark:bg-white/5"
               :style="staggerStyle(i, 90, 200)"
             >
               <CheckCircle2 class="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
@@ -107,11 +107,11 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
             class="reveal-child"
             :style="staggerStyle(i, 100)"
           >
-            <p class="relative text-xs font-semibold uppercase tracking-wide text-primary">
+            <p class="relative text-xs font-semibold uppercase tracking-wide text-primary dark:text-[#e8703c]">
               {{ item.period }}
             </p>
             <h4 class="relative mt-1.5 font-semibold">{{ item.title }}</h4>
-            <p class="relative mt-1 text-sm text-slate-500 dark:text-slate-400">
+            <p class="relative mt-1 text-sm text-ink-100 dark:text-[#A39B8B]">
               {{ item.organization }}
             </p>
           </Card>

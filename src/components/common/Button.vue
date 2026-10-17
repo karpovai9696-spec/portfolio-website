@@ -40,10 +40,10 @@ const classes = computed(() => {
 
   const variants: Record<string, string> = {
     primary:
-      'bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-0.5',
+      'bg-primary text-white shadow-lg shadow-primary/25 hover:bg-primary-hover hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5',
     outline:
-      'border-2 border-primary/60 text-primary hover:bg-primary/10 dark:text-primary dark:hover:bg-primary/15 hover:-translate-y-0.5',
-    ghost: 'text-slate-600 hover:bg-slate-900/5 dark:text-slate-300 dark:hover:bg-white/10',
+      'border-2 border-primary/60 text-primary hover:bg-primary/10 dark:text-[#e8703c] dark:border-[#e8703c]/60 dark:hover:bg-[#e8703c]/10 hover:-translate-y-0.5',
+    ghost: 'text-ink-100 hover:bg-ink-950/5 dark:text-ink-400 dark:hover:bg-white/10',
   }
 
   return `${base} ${sizes[props.size]} ${variants[props.variant]}`

@@ -12,8 +12,9 @@ import type {
 /**
  * WebGL-фон Hero: интерактивное поле частиц с волновой деформацией.
  *
- * - Three.js подгружается динамически (отдельный чанк) после первого рендера.
- * - Частицы в сине-фиолетовом спектре (#3B82F6 → #8B5CF6), прозрачный canvas.
+ * - Three.js подгружается динамически (отдельный чанк) в момент простоя браузера
+ *   (requestIdleCallback, таймаут 2.5 c) — не конкурирует с критическим путём.
+ * - Частицы в тёплом терракотовом спектре (#E8703C → #8C6D1F), прозрачный canvas.
  * - Реакция на курсор: repel-деформация волны + parallax камеры.
  * - Пауза rAF: вкладка скрыта / Hero вне viewport / светлая тема.
  * - devicePixelRatio ≤ 2, на мобильных — уменьшенная сетка.
@@ -23,14 +24,44 @@ const canvas = ref<HTMLCanvasElement | null>(null)
 const isActive = ref(false) // canvas виден (тёмная тема); управляет opacity
 
 let dispose: (() => void) | null = null
+let cancelled = false // компонент размонтирован до старта инициализации
+let idleId = 0 // id requestIdleCallback / setTimeout
 
-onMounted(async () => {
+/** requestIdleCallback с фолбэком: three.js не должен конкурировать с критическим путём */
+const scheduleIdle = (cb: () => void, timeout: number): number => {
+  const w = window as Window & {
+    requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number
+  }
+  if (typeof w.requestIdleCallback === 'function') {
+    return w.requestIdleCallback(cb, { timeout })
+  }
+  return window.setTimeout(cb, Math.min(timeout, 1500))
+}
+
+const cancelScheduled = (id: number) => {
+  const w = window as Window & { cancelIdleCallback?: (id: number) => void }
+  if (typeof w.cancelIdleCallback === 'function') w.cancelIdleCallback(id)
+  else window.clearTimeout(id)
+}
+
+onMounted(() => {
   const canvasEl = canvas.value
   if (!canvasEl) return
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
+  /* Инициализация WebGL откладывается до простоя браузера (не блокирует LCP/FCP) */
+  idleId = scheduleIdle(() => {
+    void init(canvasEl)
+  }, 2500)
+})
+
+async function init(canvasEl: HTMLCanvasElement) {
+  if (cancelled) return
+
   /* ---------- Динамический импорт three (отдельный чанк) ---------- */
   const THREE = await import('three')
+
+  if (cancelled) return
 
   const parent = canvasEl.parentElement as HTMLElement
   const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches
@@ -65,8 +96,8 @@ onMounted(async () => {
   const base = new Float32Array(COUNT * 2) // исходные x/y
   const colors = new Float32Array(COUNT * 3)
 
-  const blue = new THREE.Color('#3B82F6')
-  const violet = new THREE.Color('#8B5CF6')
+  const ember = new THREE.Color('#e8703c')
+  const gold = new THREE.Color('#8c6d1f')
   const tmpColor = new THREE.Color()
 
   let i = 0
@@ -80,9 +111,9 @@ onMounted(async () => {
       base[i * 2] = x
       base[i * 2 + 1] = y
 
-      // Градиент синий → фиолетовый по X с лёгкой вариацией по Y
+      // Тёплый переход терракота → охра по X с лёгкой вариацией по Y
       const mix = Math.min(1, Math.max(0, col / (COLS - 1) + (row / ROWS - 0.5) * 0.25))
-      tmpColor.copy(blue).lerp(violet, mix)
+      tmpColor.copy(ember).lerp(gold, mix)
       colors[i * 3] = tmpColor.r
       colors[i * 3 + 1] = tmpColor.g
       colors[i * 3 + 2] = tmpColor.b
@@ -98,7 +129,7 @@ onMounted(async () => {
     size: isMobile ? 0.06 : 0.085,
     vertexColors: true,
     transparent: true,
-    opacity: 0.95,
+    opacity: 0.85,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,
@@ -214,9 +245,11 @@ onMounted(async () => {
     renderer.dispose()
     renderer.forceContextLoss()
   }
-})
+}
 
 onBeforeUnmount(() => {
+  cancelled = true
+  if (idleId) cancelScheduled(idleId)
   dispose?.()
   dispose = null
 })
