@@ -173,6 +173,46 @@ function scrollToContact() {
         />
       </p>
 
+      <!-- Бенто-плитки фактов (bentogrids-паттерн) -->
+      <div
+        class="mt-8 grid grid-cols-2 gap-2.5 [animation-delay:800ms] animate-fade-in-up sm:gap-3 lg:grid-cols-4"
+      >
+        <div
+          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
+        >
+          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">6+</p>
+          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
+            лет в разработке
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
+        >
+          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">28</p>
+          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
+            технологий в стеке
+          </p>
+        </div>
+        <div
+          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
+        >
+          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">7</p>
+          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
+            направлений услуг
+          </p>
+        </div>
+        <div
+          class="flex flex-col justify-between rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
+        >
+          <p class="font-mono text-[11px] font-medium leading-snug text-ink-700 dark:text-[#C9C2B4]">
+            Vue · React<br />Node · TypeScript
+          </p>
+          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
+            основной стек
+          </p>
+        </div>
+      </div>
+
       <!-- Нижняя часть: описание + кнопки слева, scroll-индикатор справа -->
       <div
         class="mt-auto flex flex-col gap-8 pt-12 lg:flex-row lg:items-end lg:justify-between"

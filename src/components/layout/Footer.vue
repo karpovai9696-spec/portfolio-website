@@ -4,6 +4,7 @@ import { ArrowUp, Mail, Phone, Send } from 'lucide-vue-next'
 
 import { scrollToTarget } from '@/composables/useLenis'
 import { usePortfolioStore } from '@/stores/portfolio'
+import LogoSign from '@/components/common/LogoSign.vue'
 
 const store = usePortfolioStore()
 const { person } = store
@@ -32,9 +33,14 @@ onBeforeUnmount(() => {
   <footer class="border-t border-hairline py-10 dark:border-white/10">
     <div class="section-container">
       <div class="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
-        <p class="text-sm text-ink-100 dark:text-[#A39B8B]">
-          © 2026 {{ person.name }}. Все права защищены.
-        </p>
+        <div class="flex items-center gap-2.5">
+          <LogoSign sign="#B4491A" cursor="#241E15" clazz="h-7 w-auto dark:hidden" />
+          <LogoSign sign="#e8703c" cursor="#A39B8B" clazz="hidden h-7 w-auto dark:block" />
+          <p class="text-sm leading-tight text-ink-100 dark:text-[#A39B8B]">
+            © 2026 {{ person.name }}
+            <span class="block font-mono text-[10px] tracking-wider">karpov.dev</span>
+          </p>
+        </div>
 
         <!-- Соцссылки -->
         <div class="flex items-center gap-3">

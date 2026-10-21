@@ -3,6 +3,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { Menu, Moon, Sun, X } from 'lucide-vue-next'
 
 import Navigation from '@/components/layout/Navigation.vue'
+import LogoSign from '@/components/common/LogoSign.vue'
 
 const isDark = ref(true)
 const isMenuOpen = ref(false)
@@ -72,20 +73,24 @@ onBeforeUnmount(() => {
     />
 
     <div class="section-container flex h-16 items-center justify-between sm:h-20">
-      <!-- Логотип -->
+      <!-- Логотип — личный знак «К + курсор» -->
       <a
         href="#hero"
-        class="group flex items-center gap-2 text-lg font-bold tracking-tight"
+        class="group flex items-center gap-2.5 text-lg font-bold tracking-tight"
         aria-label="МК Михаил Карпов — на главную"
         @click.prevent="closeMenu"
       >
-        <span
-          class="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-sm font-bold text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
-          aria-hidden="true"
-        >
-          МК
+        <LogoSign
+          class="transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"
+          :class="isDark ? '' : ''"
+          :sign="isDark ? '#e8703c' : '#B4491A'"
+          :cursor="isDark ? '#A39B8B' : '#241E15'"
+          clazz="h-9 w-auto"
+        />
+        <span class="hidden leading-tight sm:inline">
+          Михаил <span class="text-gradient">Карпов</span>
+          <span class="block font-mono text-[10px] font-medium tracking-wider text-ink-100 dark:text-[#A39B8B]">karpov.dev</span>
         </span>
-        <span class="hidden sm:inline">Михаил <span class="text-gradient">Карпов</span></span>
       </a>
 
       <!-- Десктопная навигация -->
