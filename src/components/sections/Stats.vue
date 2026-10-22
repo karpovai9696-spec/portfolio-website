@@ -20,12 +20,6 @@ let raf = 0
 watch(isVisible, (visible) => {
   if (!visible) return
 
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
-  if (reduced) {
-    displayed.value = stats.map((s) => s.value)
-    return
-  }
-
   const duration = 1400
   const start = performance.now()
   const tick = (now: number) => {

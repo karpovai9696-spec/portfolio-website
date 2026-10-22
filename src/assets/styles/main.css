@@ -409,47 +409,7 @@
   background-size: 100% 2px;
 }
 
-/* ===================== Уважение к prefers-reduced-motion ===================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .reveal-left,
-  .reveal-right,
-  .reveal-scale,
-  .reveal-child {
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-  .skill-bar-fill {
-    transition: none;
-    width: var(--skill-level, 0%);
-  }
-  .section-underline,
-  .timeline-line {
-    transition: none;
-    transform: none;
-  }
-  .kinetic-letter,
-  .word-inner {
-    transition: none !important;
-    transform: none !important;
-  }
-  .ghost-title {
-    transform: none !important;
-  }
-  .marquee-track {
-    animation: none;
-  }
-  .cursor-glow {
-    display: none;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* ===================== Примечание по prefers-reduced-motion =====================
+   Системная настройка prefers-reduced-motion намеренно игнорируется:
+   по решению владельца сайт-портфолио всегда показывает полную анимацию.
+   Гейт остался только по типу указателя (тач-устройства — см. usePointerFine). */

@@ -27,7 +27,6 @@ export function useParallax<T extends HTMLElement = HTMLElement>(speed = 0.06): 
   }
 
   onMounted(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     window.addEventListener('scroll', onScroll, { passive: true })
     update()
   })

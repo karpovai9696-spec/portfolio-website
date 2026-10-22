@@ -63,16 +63,8 @@ function typeLoop(phraseIndex: number, charIndex: number, deleting: boolean) {
 }
 
 onMounted(() => {
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
-
-  // Каскадный reveal имени по буквам
-  if (reduced) lettersIn.value = true
-  else schedule(() => (lettersIn.value = true), 120)
-
-  if (reduced) {
-    typed.value = phrases[1]
-    return
-  }
+  // Каскадный reveal имени по буквам и печатающийся текст — всегда
+  schedule(() => (lettersIn.value = true), 120)
   schedule(() => typeLoop(0, 0, false), 900)
 })
 

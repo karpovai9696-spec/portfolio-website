@@ -41,7 +41,6 @@ function onScrollParallax() {
 }
 
 onMounted(() => {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   window.addEventListener('scroll', onScrollParallax, { passive: true })
 })
 

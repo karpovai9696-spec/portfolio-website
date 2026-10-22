@@ -5,8 +5,8 @@ import { usePointerFine } from '@/composables/usePointerFine'
 
 /**
  * Мягкое световое пятно, следующее за курсором.
- * Рендерится только на устройствах с точным указателем
- * и отключено при prefers-reduced-motion (см. usePointerFine + CSS).
+ * Рендерится только на устройствах с точным указателем (см. usePointerFine);
+ * настройка prefers-reduced-motion намеренно игнорируется.
  */
 const pointerFine = usePointerFine()
 const glow = ref<HTMLElement | null>(null)

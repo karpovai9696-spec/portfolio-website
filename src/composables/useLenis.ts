@@ -1,7 +1,8 @@
 /**
  * Инертный скролл на Lenis (динамический импорт — отдельный чанк).
  *
- * - При prefers-reduced-motion Lenis не создаётся — остаётся нативный скролл.
+ * - Lenis работает всегда (prefers-reduced-motion намеренно игнорируется —
+ *   владелец сайта хочет полную анимацию независимо от системной настройки).
  * - Lenis прокручивает window, поэтому scroll-события, scrollspy
  *   и прогресс-бар продолжают работать без изменений.
  */
@@ -14,7 +15,6 @@ let rafId = 0
 export async function createLenis(): Promise<Lenis | null> {
   if (instance) return instance
   if (typeof window === 'undefined') return null
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null
 
   const { default: Lenis } = await import('lenis')
   instance = new Lenis({
@@ -34,7 +34,7 @@ export async function createLenis(): Promise<Lenis | null> {
 
 /**
  * Плавный скролл к якорю ('#about') или позиции (0).
- * Без Lenis (reduced-motion) — нативный fallback.
+ * Без Lenis (например, до его инициализации) — нативный fallback.
  */
 export function scrollToTarget(target: string | number) {
   if (instance) {

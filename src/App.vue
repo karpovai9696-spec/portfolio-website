@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer.vue'
 import { createLenis } from '@/composables/useLenis'
 
 onMounted(() => {
-  // Инертный скролл (динамический импорт lenis; отключён при prefers-reduced-motion)
+  // Инертный скролл (динамический импорт lenis; работает всегда)
   void createLenis()
 })
 </script>
@@ -19,7 +19,7 @@ onMounted(() => {
     <!-- Film-grain текстура поверх всего сайта -->
     <div class="noise-overlay" aria-hidden="true" />
 
-    <!-- Световое пятно за курсором (только fine pointer, без reduced-motion) -->
+    <!-- Световое пятно за курсором (только устройства с точным указателем) -->
     <CursorGlow />
 
     <Header />

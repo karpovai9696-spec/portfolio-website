@@ -18,7 +18,7 @@ import type {
  * - Реакция на курсор: repel-деформация волны + parallax камеры.
  * - Пауза rAF: вкладка скрыта / Hero вне viewport / светлая тема.
  * - devicePixelRatio ≤ 2, на мобильных — уменьшенная сетка.
- * - prefers-reduced-motion: WebGL не инициализируется вообще.
+ * - prefers-reduced-motion намеренно игнорируется (полная анимация всегда).
  */
 const canvas = ref<HTMLCanvasElement | null>(null)
 const isActive = ref(false) // canvas виден (тёмная тема); управляет opacity
@@ -47,7 +47,6 @@ const cancelScheduled = (id: number) => {
 onMounted(() => {
   const canvasEl = canvas.value
   if (!canvasEl) return
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
   /* Инициализация WebGL откладывается до простоя браузера (не блокирует LCP/FCP) */
   idleId = scheduleIdle(() => {

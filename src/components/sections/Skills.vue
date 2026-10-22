@@ -22,12 +22,6 @@ let raf = 0
 watch(barsVisible, (visible) => {
   if (!visible) return
 
-  const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
-  if (reduced) {
-    displayedPercents.value = skillLevels.map((s) => s.level)
-    return
-  }
-
   const duration = 1300
   const start = performance.now()
   const tick = (now: number) => {
