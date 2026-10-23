@@ -2,8 +2,8 @@
 /**
  * Секция «Смена сцен при скролле» — тёмный editorial-разрыв между Hero и услугами.
  *
- * Механика 1-в-1 по прототипу scroll-scenes:
- * - секция 480vh (на ≤860px — 320vh), .stage липнет через position:sticky на 100vh;
+ * Механика по прототипу scroll-scenes (с фиксами гонок, см. goTo):
+ * - секция 240vh (на ≤860px — 180vh), .stage липнет через position:sticky на 100vh;
  * - смена сцен — ScrollTrigger onUpdate по прогрессу (сегмент 1/N, переход
  *   только при смене индекса);
  * - переход кадров: шторка .wipe scaleX 1→0 за 0.7s power3.inOut, контент
@@ -39,6 +39,8 @@ const pbarRef = ref<HTMLElement | null>(null)
 
 /** Индекс кадра, реально показанного в стопке (нужен для направления перехода). */
 let animCurrent = 0
+/** Незавершённый переход — перед новым переходом доигрывается мгновенно. */
+let activeTl: { progress: (v: number) => unknown } | null = null
 let ctx: { revert: () => void } | null = null
 let lenis: Lenis | null = null
 let onLenisScroll: (() => void) | null = null
@@ -72,8 +74,13 @@ onMounted(async () => {
 
     function goTo(i: number) {
       if (i === animCurrent) return
+      // Быстрая смена направления: предыдущий переход доигрываем мгновенно,
+      // иначе его твины/события гоняются с новыми (см. фиксы ниже).
+      if (activeTl) activeTl.progress(1)
+
       const dir = i > animCurrent ? 1 : -1
-      const prev = frames[animCurrent]
+      const prevIdx = animCurrent
+      const prev = frames[prevIdx]
       const next = frames[i]
       const nextZoom = next.querySelector('.zoom')
       const prevZoom = prev.querySelector('.zoom')
@@ -82,19 +89,35 @@ onMounted(async () => {
       gsap.set(prev, { zIndex: 1 })
 
       const tl = gsap.timeline({
-        onComplete: () => gsap.set(prev, { visibility: 'hidden' }),
+        onComplete: () => {
+          // Прячем prev, только если он не успел снова стать активным кадром
+          // (гонка onComplete при резком реверсе скролла — причина «тёмной плашки»).
+          if (animCurrent !== prevIdx) gsap.set(prev, { visibility: 'hidden' })
+          // Гарантия чистого конечного состояния активного кадра: контент без
+          // сдвига/уменьшения, шторка полностью ушла.
+          gsap.set(nextZoom, { scale: 1, yPercent: 0 })
+          gsap.set(next.querySelector('.wipe'), { scaleX: 0 })
+          if (activeTl === tl) activeTl = null
+        },
       })
-      // Новый кадр: шторка уходит в сторону + контент чуть зумится
+      // Новый кадр: шторка уходит в сторону + контент чуть зумится.
+      // yPercent сбрасываем явно — кадр мог вернуться после параллакс-ухода (∓6).
       tl.fromTo(
         next.querySelector('.wipe'),
         { scaleX: 1, transformOrigin: dir > 0 ? 'right' : 'left' },
         { scaleX: 0, duration: 0.7, ease: 'power3.inOut' },
         0,
       )
-        .fromTo(nextZoom, { scale: 1.12 }, { scale: 1, duration: 1.1, ease: 'power2.out' }, 0)
+        .fromTo(
+          nextZoom,
+          { scale: 1.12, yPercent: 0 },
+          { scale: 1, yPercent: 0, duration: 1.1, ease: 'power2.out' },
+          0,
+        )
         // Старый уходит с лёгким параллаксом
         .to(prevZoom, { yPercent: dir * -6, scale: 0.96, duration: 0.8, ease: 'power2.inOut' }, 0)
 
+      activeTl = tl
       animCurrent = i
       current.value = i
     }
@@ -258,7 +281,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   --ss-mint: #3ba28c;
   --ss-paper: #fffcf5;
 
-  height: 480vh;
+  height: 240vh;
   position: relative;
   background: var(--ss-ink-950);
 }
@@ -428,6 +451,8 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   background: var(--ss-ink-950);
   transform: scaleX(1);
   transform-origin: right;
+  will-change: transform;
+  pointer-events: none;
 }
 
 /* карточки-«картинки», свёрстанные в коде */
@@ -581,7 +606,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 
 @media (max-width: 860px) {
   .stories {
-    height: 320vh;
+    height: 180vh;
   }
   .stage {
     grid-template-columns: 1fr;
