@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Hero from '@/components/sections/Hero.vue'
+import ScrollScenes from '@/components/sections/ScrollScenes.vue'
 import TechMarquee from '@/components/sections/TechMarquee.vue'
 import About from '@/components/sections/About.vue'
 import Stats from '@/components/sections/Stats.vue'
@@ -12,6 +13,7 @@ import Contact from '@/components/sections/Contact.vue'
 
 <template>
   <Hero />
+  <ScrollScenes />
   <TechMarquee />
   <About />
   <Stats />
