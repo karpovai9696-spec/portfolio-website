@@ -294,6 +294,8 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   position: sticky;
   top: 0;
   height: 100vh;
+  /* На мобильных 100vh больше видимой области (панели браузера) — dvh точнее */
+  height: 100dvh;
   overflow: hidden;
   background:
     radial-gradient(1200px 700px at 78% 30%, rgba(180, 73, 26, 0.1), transparent 60%),
@@ -610,17 +612,56 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   }
   .stage {
     grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr;
-    gap: 20px;
-    padding: 88px 6vw 40px;
-    align-content: start;
+    /* Две авто-строки, весь блок центрирован по вертикали — без «прилипло
+       кверху, снизу обрезало»; высота stage = 100dvh (см. базовый .stage) */
+    grid-template-rows: auto auto;
+    gap: 18px;
+    padding: 72px 6vw 24px;
+    align-content: center;
+  }
+  .kicker {
+    margin-bottom: 14px;
   }
   .headline {
-    font-size: clamp(26px, 7.4vw, 34px);
+    font-size: clamp(24px, 6.8vw, 32px);
   }
   .sub {
     font-size: 14px;
-    height: 6.4em;
+    height: 6em;
+    margin-top: 12px;
+  }
+  .progress {
+    margin-top: 24px;
+  }
+  .frames {
+    height: min(44vh, 420px);
+    height: min(44dvh, 420px);
+  }
+  /* Карточки внутри кадра компактнее — 4 узла/стата должны целиком
+     помещаться в кадр даже на низком вьюпорте (~700px высотой) */
+  .flow-card {
+    padding: 22px;
+    gap: 8px;
+  }
+  .flow-title {
+    margin-bottom: 8px;
+  }
+  .node {
+    padding: 10px 14px;
+  }
+  .wire {
+    height: 12px;
+  }
+  .stats-card {
+    padding: 24px;
+    gap: 8px;
+  }
+  .stat {
+    padding: 12px 0;
+  }
+  .code-card {
+    padding: 18px;
+    font-size: 11.5px;
   }
   .bignum {
     font-size: 30vh;

@@ -211,7 +211,7 @@ function scrollToContact() {
       >
         <div class="max-w-[420px]">
           <p
-            class="animate-fade-in-up text-sm leading-relaxed text-ink-100 [animation-delay:750ms] dark:text-ink-400 sm:text-base"
+            class="animate-fade-in-up text-sm leading-relaxed text-ink-100 [animation-delay:750ms] dark:text-ink-300 sm:text-base"
           >
             {{ person.tagline }}
           </p>

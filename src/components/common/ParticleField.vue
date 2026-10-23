@@ -125,10 +125,10 @@ async function init(canvasEl: HTMLCanvasElement) {
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
   const material: PointsMaterial = new THREE.PointsMaterial({
-    size: isMobile ? 0.06 : 0.085,
+    size: isMobile ? 0.05 : 0.07,
     vertexColors: true,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.45,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,
@@ -257,7 +257,7 @@ onBeforeUnmount(() => {
 <template>
   <canvas
     ref="canvas"
-    class="pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-700"
+    class="pointer-events-none absolute inset-0 h-full w-full transition-opacity duration-700 [-webkit-mask-image:radial-gradient(ellipse_82%_74%_at_32%_55%,transparent_42%,black_88%)] [mask-image:radial-gradient(ellipse_82%_74%_at_32%_55%,transparent_42%,black_88%)]"
     :class="isActive ? 'opacity-100' : 'opacity-0'"
     aria-hidden="true"
   />

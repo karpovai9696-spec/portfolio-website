@@ -32,7 +32,7 @@ const { target } = useScrollAnimation<HTMLDivElement>()
     </h2>
     <p
       v-if="subtitle"
-      class="mx-auto mt-4 max-w-2xl text-base text-ink-100 dark:text-ink-400 sm:text-lg"
+      class="mx-auto mt-4 max-w-2xl text-base text-ink-100 dark:text-ink-300 sm:text-lg"
     >
       {{ subtitle }}
     </p>

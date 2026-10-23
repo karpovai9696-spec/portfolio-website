@@ -98,6 +98,26 @@ def check_active_frame(page, tag: str) -> None:
         FAILURES.append(f"{tag}: {st}")
 
 
+def check_stage_fits(page, tag: str) -> None:
+    """Мобильный багфикс: зафиксированный stage целиком во вьюпорте (без обрезки снизу)."""
+    st = page.evaluate(
+        """() => {
+            const stage = document.querySelector('.stories .stage');
+            const frames = document.querySelector('.stories .frames');
+            const sr = stage.getBoundingClientRect();
+            const fr = frames.getBoundingClientRect();
+            return { vh: window.innerHeight, stageH: Math.round(sr.height),
+                     stageTop: Math.round(sr.top), framesBottom: Math.round(fr.bottom),
+                     dvh: CSS.supports('height: 100dvh') };
+        }"""
+    )
+    ok = st["stageH"] <= st["vh"] and st["framesBottom"] <= st["vh"]
+    status = "OK " if ok else "FAIL"
+    print(f"  [{status}] {tag} stage-fits: {st}")
+    if not ok:
+        FAILURES.append(f"{tag} stage-fits: {st}")
+
+
 def run(page, prefix: str) -> None:
     geo = stories_geo(page)
     print(f"{prefix} stories:", geo)
@@ -106,6 +126,7 @@ def run(page, prefix: str) -> None:
         scroll_to_scene(page, geo, prog)
         page.screenshot(path=str(SHOTS / f"{prefix}-{name}.png"))
         check_active_frame(page, f"{prefix}-{name}")
+        check_stage_fits(page, f"{prefix}-{name}")
     # --- реверс вверх: сцены 3→2→1 ---
     for name, prog in [("scene3-back", 0.55), ("scene2-back", 0.30), ("scene1-back", 0.04)]:
         scroll_to_scene(page, geo, prog)
@@ -133,16 +154,36 @@ def main() -> int:
         print("dev-сервер поднят")
         with sync_playwright() as p:
             browser = p.chromium.launch()
+            # --- десктоп: hero в обеих темах (контраст текста + частицы) ---
             page = browser.new_page(viewport={"width": 1440, "height": 900})
             page.goto(BASE, wait_until="networkidle")
-            page.wait_for_timeout(2500)
+            page.evaluate("document.documentElement.classList.add('dark')")
+            page.wait_for_timeout(5000)  # requestIdleCallback(2.5s) + чанк three + частицы
+            page.screenshot(path=str(SHOTS / "d-hero-dark.png"))
+            # крупный план зоны основного абзаца (левый нижний блок hero)
+            page.screenshot(
+                path=str(SHOTS / "d-hero-dark-text.png"),
+                clip={"x": 0, "y": 520, "width": 760, "height": 380},
+            )
+            page.evaluate("document.documentElement.classList.remove('dark')")
+            page.wait_for_timeout(1200)
+            page.screenshot(path=str(SHOTS / "d-hero-light.png"))
+            page.evaluate("document.documentElement.classList.add('dark')")
+            page.wait_for_timeout(800)
             run(page, "d")
             page.close()
+            # --- мобильная 390x844 ---
             mob = browser.new_page(viewport={"width": 390, "height": 844})
             mob.goto(BASE, wait_until="networkidle")
             mob.wait_for_timeout(2500)
             run(mob, "m")
             mob.close()
+            # --- низкий вьюпорт 390x700 (имитация панелей моб. браузера) ---
+            low = browser.new_page(viewport={"width": 390, "height": 700})
+            low.goto(BASE, wait_until="networkidle")
+            low.wait_for_timeout(2500)
+            run(low, "m700")
+            low.close()
             browser.close()
         if FAILURES:
             print("\nИНВАРИАНТЫ НАРУШЕНЫ:")
