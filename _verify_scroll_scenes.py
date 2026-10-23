@@ -60,7 +60,8 @@ def scroll_to_scene(page, geo, prog: float, settle_ms: int = 1800) -> None:
 
 
 def check_active_frame(page, tag: str) -> None:
-    """Инварианты активного кадра: виден, шторка ушла, контент без scale/сдвига."""
+    """Инварианты активного кадра: виден, шторка ушла, контент без scale/сдвига;
+    для сцены 01 — фото полностью внутри кадра (contain, без обрезки)."""
     st = page.evaluate(
         """() => {
             const idx = parseInt(document.querySelector('.stories .pnum b').textContent, 10) - 1;
@@ -69,8 +70,15 @@ def check_active_frame(page, tag: str) -> None:
             const cs = getComputedStyle(f);
             const wipe = getComputedStyle(f.querySelector('.wipe'));
             const zoom = getComputedStyle(f.querySelector('.zoom'));
-            return { idx, vis: cs.visibility, wipe: wipe.transform, zoom: zoom.transform,
+            const out = { idx, vis: cs.visibility, wipe: wipe.transform, zoom: zoom.transform,
                      kicker: document.querySelector('.stories .kicker').textContent };
+            if (idx === 0) {
+                const fr = f.getBoundingClientRect();
+                const img = f.querySelector('.photo').getBoundingClientRect();
+                out.photo = { dL: Math.round(img.left - fr.left), dT: Math.round(img.top - fr.top),
+                              dR: Math.round(fr.right - img.right), dB: Math.round(fr.bottom - img.bottom) };
+            }
+            return out;
         }"""
     )
     ok = True
@@ -92,8 +100,14 @@ def check_active_frame(page, tag: str) -> None:
             ok = False
         if key == "zoom" and (abs(vals[4]) > 2 or abs(vals[5]) > 2):
             ok = False  # остаточный сдвиг контента
+    # фото целиком внутри кадра (все дельты >= -1px)
+    if "photo" in st:
+        p = st["photo"]
+        if min(p["dL"], p["dT"], p["dR"], p["dB"]) < -1:
+            ok = False
     status = "OK " if ok else "FAIL"
-    print(f"  [{status}] {tag}: idx={st['idx']} vis={st['vis']} wipe={st['wipe']} zoom={st['zoom']}")
+    print(f"  [{status}] {tag}: idx={st['idx']} vis={st['vis']} wipe={st['wipe']} zoom={st['zoom']}"
+          + (f" photo={st['photo']}" if "photo" in st else ""))
     if not ok:
         FAILURES.append(f"{tag}: {st}")
 
@@ -171,12 +185,21 @@ def main() -> int:
             page.evaluate("document.documentElement.classList.add('dark')")
             page.wait_for_timeout(800)
             run(page, "d")
+            # --- десктоп: секция в светлой теме ---
+            page.evaluate("document.documentElement.classList.remove('dark')")
+            page.wait_for_timeout(600)
+            page.evaluate("window.scrollTo(0, 0)")
+            run(page, "dl")
             page.close()
-            # --- мобильная 390x844 ---
+            # --- мобильная 390x844: тёмная и светлая ---
             mob = browser.new_page(viewport={"width": 390, "height": 844})
             mob.goto(BASE, wait_until="networkidle")
             mob.wait_for_timeout(2500)
             run(mob, "m")
+            mob.evaluate("document.documentElement.classList.remove('dark')")
+            mob.wait_for_timeout(600)
+            mob.evaluate("window.scrollTo(0, 0)")
+            run(mob, "ml")
             mob.close()
             # --- низкий вьюпорт 390x700 (имитация панелей моб. браузера) ---
             low = browser.new_page(viewport={"width": 390, "height": 700})

@@ -189,9 +189,12 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="frames">
-        <!-- Сцена 1: фото -->
-        <div class="frame" data-i="0">
-          <div class="zoom"><img src="/images/photo.jpg" alt="Михаил Карпов" /></div>
+        <!-- Сцена 1: фото (целиком: contain + размытая подложка из того же фото) -->
+        <div class="frame frame-photo" data-i="0">
+          <div class="zoom">
+            <img class="backdrop" src="/images/photo.jpg" alt="" aria-hidden="true" />
+            <img class="photo" src="/images/photo.jpg" alt="Михаил Карпов" />
+          </div>
           <div class="wipe"></div>
         </div>
         <!-- Сцена 2: код -->
@@ -270,20 +273,49 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 </template>
 
 <style scoped>
-/* Намеренно тёмный «разрыв» в обеих темах сайта — не подгонять под light/dark. */
+/* Секция-«разрыв» с темозависимыми токенами: базовый блок — светлое
+   исполнение «бумага и чернила», :global(.dark) — тёмное (исходное). */
 .stories {
-  --ss-ink-950: #0e0b08;
+  /* --- светлая тема: бумага глубже основного фона сайта (#F5F1E8) --- */
+  --ss-ink-950: #eae3d2; /* фон секции, шторки, подложка .frames */
   --ss-ink-500: #4a443b;
-  --ss-ink-300: #8f8677;
-  --ss-ink-100: #e2dccb;
+  --ss-ink-300: #655e50; /* подписи: 5.0:1 на #EAE3D2 */
+  --ss-ink-100: #4a443b;
   --ss-terra: #b4491a;
-  --ss-gold: #c99a2c;
-  --ss-mint: #3ba28c;
-  --ss-paper: #fffcf5;
+  --ss-gold: #8c6d1f; /* тёмное золото для светлого фона */
+  --ss-mint: #1f6a5b; /* тёмная мята: ≥4.5:1 на бумаге */
+  --ss-paper: #1b1610; /* заголовки — тёмные ink */
+  --ss-track: rgba(27, 22, 16, 0.16); /* дорожка прогресс-бара */
+  --ss-ring: rgba(27, 22, 16, 0.12); /* обводка кадра */
+  --ss-shadow: 0 40px 80px -20px rgba(74, 58, 32, 0.22);
+  --ss-bignum: rgba(27, 22, 16, 0.1);
+  --ss-card-bg: linear-gradient(160deg, #fffcf5, #f5f1e8);
+  --ss-node-bg: rgba(27, 22, 16, 0.045);
+  --ss-node-border: rgba(27, 22, 16, 0.1);
+  --ss-stat-border: rgba(27, 22, 16, 0.1);
 
   height: 240vh;
   position: relative;
   background: var(--ss-ink-950);
+}
+
+/* --- тёмная тема: исходное исполнение секции ---
+   (блок полностью глобальный: scoped-комбинатор после :global() не компилируется) */
+:global(.dark .stories) {
+  --ss-ink-950: #0e0b08;
+  --ss-ink-300: #8f8677;
+  --ss-ink-100: #e2dccb;
+  --ss-gold: #c99a2c;
+  --ss-mint: #3ba28c;
+  --ss-paper: #fffcf5;
+  --ss-track: rgba(226, 220, 203, 0.18);
+  --ss-ring: rgba(226, 220, 203, 0.08);
+  --ss-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.55);
+  --ss-bignum: rgba(226, 220, 203, 0.07);
+  --ss-card-bg: linear-gradient(160deg, #171310, #100d09);
+  --ss-node-bg: rgba(226, 220, 203, 0.07);
+  --ss-node-border: rgba(226, 220, 203, 0.14);
+  --ss-stat-border: rgba(226, 220, 203, 0.1);
 }
 
 .mono {
@@ -405,7 +437,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   position: relative;
   width: 180px;
   height: 2px;
-  background: rgba(226, 220, 203, 0.18);
+  background: var(--ss-track);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -425,6 +457,9 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   width: 100%;
   border-radius: 18px;
   perspective: 1200px;
+  /* В токен шторки: при параллакс-уходе кадра (yPercent ∓6) за его краем
+     не просвечивает фон stage */
+  background: var(--ss-ink-950);
 }
 .frame {
   position: absolute;
@@ -432,8 +467,8 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   border-radius: 18px;
   overflow: hidden;
   box-shadow:
-    0 40px 80px -20px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(226, 220, 203, 0.08);
+    var(--ss-shadow),
+    0 0 0 1px var(--ss-ring);
   visibility: hidden;
 }
 .frame .zoom {
@@ -441,10 +476,25 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   inset: -6%;
   will-change: transform;
 }
-.frame img {
+/* Фото-кадр: без bleed-инсета (финал — фото целиком), contain поверх
+   размытой подложки из того же снимка */
+.frame-photo .zoom {
+  inset: 0;
+}
+.frame-photo .backdrop {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: blur(42px) brightness(0.45) saturate(0.9);
+  transform: scale(1.15);
+}
+.frame-photo .photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 .frame .wipe {
@@ -465,7 +515,14 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   flex-direction: column;
 }
 .code-card {
+  /* «Экран терминала»: тёмный в обеих темах, яркость синтаксиса фиксирована */
+  --ss-gold: #c99a2c;
+  --ss-mint: #3ba28c;
+  --ss-ink-300: #8f8677;
+  --ss-ink-100: #e2dccb;
+
   background: #191410;
+  color: #e2dccb;
   padding: 22px;
   font-size: 13.5px;
   line-height: 1.75;
@@ -514,7 +571,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 }
 
 .flow-card {
-  background: linear-gradient(160deg, #171310, #100d09);
+  background: var(--ss-card-bg);
   padding: 34px;
   justify-content: center;
   gap: 14px;
@@ -532,8 +589,8 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   gap: 14px;
   padding: 14px 18px;
   border-radius: 12px;
-  background: rgba(226, 220, 203, 0.05);
-  border: 1px solid rgba(226, 220, 203, 0.1);
+  background: var(--ss-node-bg);
+  border: 1px solid var(--ss-node-border);
 }
 .node .dot {
   width: 10px;
@@ -556,7 +613,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 }
 
 .stats-card {
-  background: linear-gradient(160deg, #171310, #100d09);
+  background: var(--ss-card-bg);
   padding: 34px;
   justify-content: center;
   gap: 12px;
@@ -566,7 +623,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   align-items: baseline;
   gap: 14px;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(226, 220, 203, 0.08);
+  border-bottom: 1px solid var(--ss-stat-border);
 }
 .stat:last-child {
   border-bottom: 0;
@@ -603,7 +660,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   line-height: 1;
   letter-spacing: -0.05em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(226, 220, 203, 0.07);
+  -webkit-text-stroke: 1px var(--ss-bignum);
 }
 
 @media (max-width: 860px) {
