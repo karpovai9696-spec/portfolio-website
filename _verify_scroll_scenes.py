@@ -60,8 +60,8 @@ def scroll_to_scene(page, geo, prog: float, settle_ms: int = 1800) -> None:
 
 
 def check_active_frame(page, tag: str) -> None:
-    """Инварианты активного кадра: виден, шторка ушла, контент без scale/сдвига;
-    для сцены 01 — фото полностью внутри кадра (contain, без обрезки)."""
+    """Инварианты активного кадра: виден, шторка ушла, контент без scale/сдвига
+    и ПОЛНОСТЬЮ внутри rect кадра со всех 4 сторон (сцены 01-04)."""
     st = page.evaluate(
         """() => {
             const idx = parseInt(document.querySelector('.stories .pnum b').textContent, 10) - 1;
@@ -72,11 +72,12 @@ def check_active_frame(page, tag: str) -> None:
             const zoom = getComputedStyle(f.querySelector('.zoom'));
             const out = { idx, vis: cs.visibility, wipe: wipe.transform, zoom: zoom.transform,
                      kicker: document.querySelector('.stories .kicker').textContent };
-            if (idx === 0) {
+            const content = f.querySelector('.photo, .mock');
+            if (content) {
                 const fr = f.getBoundingClientRect();
-                const img = f.querySelector('.photo').getBoundingClientRect();
-                out.photo = { dL: Math.round(img.left - fr.left), dT: Math.round(img.top - fr.top),
-                              dR: Math.round(fr.right - img.right), dB: Math.round(fr.bottom - img.bottom) };
+                const cr = content.getBoundingClientRect();
+                out.content = { dL: Math.round(cr.left - fr.left), dT: Math.round(cr.top - fr.top),
+                                dR: Math.round(fr.right - cr.right), dB: Math.round(fr.bottom - cr.bottom) };
             }
             return out;
         }"""
@@ -100,14 +101,14 @@ def check_active_frame(page, tag: str) -> None:
             ok = False
         if key == "zoom" and (abs(vals[4]) > 2 or abs(vals[5]) > 2):
             ok = False  # остаточный сдвиг контента
-    # фото целиком внутри кадра (все дельты >= -1px)
-    if "photo" in st:
-        p = st["photo"]
+    # контент кадра целиком внутри кадра (все дельты >= -1px)
+    if "content" in st:
+        p = st["content"]
         if min(p["dL"], p["dT"], p["dR"], p["dB"]) < -1:
             ok = False
     status = "OK " if ok else "FAIL"
     print(f"  [{status}] {tag}: idx={st['idx']} vis={st['vis']} wipe={st['wipe']} zoom={st['zoom']}"
-          + (f" photo={st['photo']}" if "photo" in st else ""))
+          + (f" content={st['content']}" if "content" in st else ""))
     if not ok:
         FAILURES.append(f"{tag}: {st}")
 

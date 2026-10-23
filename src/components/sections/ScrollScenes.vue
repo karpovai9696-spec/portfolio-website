@@ -312,10 +312,10 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   --ss-ring: rgba(226, 220, 203, 0.08);
   --ss-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.55);
   --ss-bignum: rgba(226, 220, 203, 0.07);
-  --ss-card-bg: linear-gradient(160deg, #171310, #100d09);
-  --ss-node-bg: rgba(226, 220, 203, 0.07);
-  --ss-node-border: rgba(226, 220, 203, 0.14);
-  --ss-stat-border: rgba(226, 220, 203, 0.1);
+  --ss-card-bg: linear-gradient(160deg, #1d1712, #131009);
+  --ss-node-bg: rgba(226, 220, 203, 0.08);
+  --ss-node-border: rgba(226, 220, 203, 0.16);
+  --ss-stat-border: rgba(226, 220, 203, 0.12);
 }
 
 .mono {
@@ -473,14 +473,12 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 }
 .frame .zoom {
   position: absolute;
-  inset: -6%;
+  /* Без bleed-инсета для ВСЕХ кадров: контент финально строго в границах
+     кадра (зум 1.12→1 работает внутри границ, обрезки краёв нет) */
+  inset: 0;
   will-change: transform;
 }
-/* Фото-кадр: без bleed-инсета (финал — фото целиком), contain поверх
-   размытой подложки из того же снимка */
-.frame-photo .zoom {
-  inset: 0;
-}
+/* Фото-кадр: contain поверх размытой подложки из того же снимка */
 .frame-photo .backdrop {
   position: absolute;
   inset: 0;
@@ -521,7 +519,7 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   --ss-ink-300: #8f8677;
   --ss-ink-100: #e2dccb;
 
-  background: #191410;
+  background: #1e1813;
   color: #e2dccb;
   padding: 22px;
   font-size: 13.5px;
