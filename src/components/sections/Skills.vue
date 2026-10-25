@@ -36,10 +36,10 @@ watch(barsVisible, (visible) => {
 onBeforeUnmount(() => cancelAnimationFrame(raf))
 
 const labelColors: Record<string, string> = {
-  Expert: 'text-green-500 dark:text-green-400',
-  Advanced: 'text-primary dark:text-[#e8703c]',
-  Intermediate: 'text-amber-500 dark:text-amber-400',
-  Basic: 'text-ink-100 dark:text-[#A39B8B]',
+  Expert: 'text-green-600 dark:text-[#7EE787]',
+  Advanced: 'text-gold dark:text-primary',
+  Intermediate: 'text-amber-600 dark:text-amber-400',
+  Basic: 'text-ink-100 dark:text-ink-300',
 }
 </script>
 
@@ -72,7 +72,7 @@ const labelColors: Record<string, string> = {
             <li
               v-for="item in category.items"
               :key="item"
-              class="rounded-lg border border-hairline bg-paper-raised px-3 py-1.5 text-sm font-medium text-ink-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary hover:shadow-md hover:shadow-primary/10 dark:border-white/10 dark:bg-white/5 dark:text-[#A39B8B] dark:hover:border-primary/50 dark:hover:text-primary"
+              class="rounded-lg border border-hairline bg-paper-raised px-3 py-1.5 text-sm font-medium text-ink-700 transition-all duration-300 hover:-translate-y-0.5 hover:border-gold/50 hover:text-gold hover:shadow-md hover:shadow-gold/10 dark:border-white/10 dark:bg-white/5 dark:text-ink-300 dark:hover:border-primary/50 dark:hover:text-primary dark:hover:shadow-primary/10"
             >
               {{ item }}
             </li>
@@ -96,7 +96,7 @@ const labelColors: Record<string, string> = {
                 <span class="font-semibold" :class="labelColors[skill.label]">
                   {{ skill.label }}
                 </span>
-                <span class="ml-2 tabular-nums text-ink-50 dark:text-[#A39B8B]">
+                <span class="ml-2 tabular-nums text-ink-50 dark:text-ink-300">
                   {{ displayedPercents[i] }}%
                 </span>
               </span>
@@ -110,7 +110,7 @@ const labelColors: Record<string, string> = {
               :aria-label="`Уровень владения ${skill.name}: ${skill.level}%`"
             >
               <div
-                class="skill-bar-fill relative h-full rounded-full bg-primary"
+                class="skill-bar-fill relative h-full rounded-full bg-gold dark:bg-primary"
                 :style="{ '--skill-level': `${skill.level}%` }"
               >
                 <span

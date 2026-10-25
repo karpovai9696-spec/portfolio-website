@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
  * Личный знак «К + курсор» (вариант А, итерация 2) — векторная геометрия
- * viewBox 128×104. По умолчанию терракота/чернила (светлая тема).
+ * viewBox 128×104. По умолчанию жёлтый/золото (cyber-система).
  */
 withDefaults(
   defineProps<{
@@ -10,8 +10,8 @@ withDefaults(
     clazz?: string
   }>(),
   {
-    sign: '#B4491A',
-    cursor: '#241E15',
+    sign: '#FCD116',
+    cursor: '#8E751D',
     clazz: 'h-9 w-auto',
   },
 )

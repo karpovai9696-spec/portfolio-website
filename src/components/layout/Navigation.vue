@@ -61,8 +61,8 @@ function scrollTo(event: MouseEvent, href: string) {
           class="group relative block rounded-lg px-3 py-2 text-sm font-medium transition-colors duration-300"
           :class="
             activeId === link.href.slice(1)
-              ? 'text-primary'
-              : 'text-ink-700 hover:bg-ink-950/5 hover:text-primary dark:text-[#A39B8B] dark:hover:bg-white/10 dark:hover:text-primary'
+              ? 'text-gold dark:text-primary'
+              : 'text-ink-700 hover:bg-ink-950/5 hover:text-gold dark:text-ink-300 dark:hover:bg-white/10 dark:hover:text-primary'
           "
           :aria-current="activeId === link.href.slice(1) ? 'true' : undefined"
           @click="scrollTo($event, link.href)"

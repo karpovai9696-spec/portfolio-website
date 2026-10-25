@@ -21,7 +21,7 @@ const marqueeItems = computed(() => [...technologies.value, ...technologies.valu
       <span
         v-for="(tech, i) in marqueeItems"
         :key="`${tech}-${i}`"
-        class="flex items-center gap-8 whitespace-nowrap font-mono text-sm font-medium tracking-wide text-ink-50 transition-colors hover:text-primary dark:text-[#A39B8B] dark:hover:text-[#e8703c]"
+        class="flex items-center gap-8 whitespace-nowrap font-mono text-sm font-medium tracking-wide text-ink-50 transition-colors hover:text-gold dark:text-ink-300 dark:hover:text-primary"
       >
         {{ tech }}
         <span class="h-1.5 w-1.5 rounded-full bg-primary" />

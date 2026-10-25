@@ -21,7 +21,7 @@ const { target } = useScrollAnimation<HTMLDivElement>()
 <template>
   <div ref="target" class="reveal mb-12 text-center sm:mb-16">
     <span v-if="index && tag" class="section-badge" aria-hidden="true">
-      <span class="text-primary">//</span> {{ index }} — {{ tag }}
+      <span class="text-gold dark:text-primary">//</span> {{ index }} — {{ tag }}
     </span>
     <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
       <span

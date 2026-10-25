@@ -191,15 +191,34 @@ def main() -> int:
             page.wait_for_timeout(600)
             page.evaluate("window.scrollTo(0, 0)")
             run(page, "dl")
+            # --- портфолио: светлая тема ---
+            page.evaluate("document.querySelector('#portfolio').scrollIntoView()")
+            page.wait_for_timeout(1500)
+            page.screenshot(path=str(SHOTS / "dl-portfolio.png"))
+            # --- терминал hero крупно + портфолио: тёмная тема ---
+            page.evaluate("document.documentElement.classList.add('dark')")
+            page.wait_for_timeout(800)
+            page.evaluate("window.scrollTo(0, 0)")
+            page.wait_for_timeout(2500)  # терминал успевает напечатать строки
+            page.screenshot(
+                path=str(SHOTS / "d-hero-terminal.png"),
+                clip={"x": 720, "y": 120, "width": 720, "height": 600},
+            )
+            page.evaluate("document.querySelector('#portfolio').scrollIntoView()")
+            page.wait_for_timeout(1500)
+            page.screenshot(path=str(SHOTS / "d-portfolio-dark.png"))
             page.close()
             # --- мобильная 390x844: тёмная и светлая ---
             mob = browser.new_page(viewport={"width": 390, "height": 844})
             mob.goto(BASE, wait_until="networkidle")
             mob.wait_for_timeout(2500)
+            mob.screenshot(path=str(SHOTS / "m-hero-dark.png"))
             run(mob, "m")
             mob.evaluate("document.documentElement.classList.remove('dark')")
             mob.wait_for_timeout(600)
             mob.evaluate("window.scrollTo(0, 0)")
+            mob.wait_for_timeout(1200)
+            mob.screenshot(path=str(SHOTS / "ml-hero.png"))
             run(mob, "ml")
             mob.close()
             # --- низкий вьюпорт 390x700 (имитация панелей моб. браузера) ---

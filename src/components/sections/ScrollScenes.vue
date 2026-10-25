@@ -223,17 +223,17 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
             <div class="mock flow-card">
               <div class="flow-title mono">живой конвейер · status: online</div>
               <div class="node">
-                <span class="dot" style="background: #b4491a"></span><b>Битрикс24</b
+                <span class="dot" style="background: #fcd116"></span><b>Битрикс24</b
                 ><span>заявка и сделка</span>
               </div>
               <div class="wire"></div>
               <div class="node">
-                <span class="dot" style="background: #c99a2c"></span><b>n8n</b
+                <span class="dot" style="background: #e0b90e"></span><b>n8n</b
                 ><span>оркестрация процессов</span>
               </div>
               <div class="wire"></div>
               <div class="node">
-                <span class="dot" style="background: #3ba28c"></span><b>1С · СБИС · МДЛП</b
+                <span class="dot" style="background: #7ee787"></span><b>1С · СБИС · МДЛП</b
                 ><span>документы и учёт</span>
               </div>
               <div class="wire"></div>
@@ -276,46 +276,47 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 /* Секция-«разрыв» с темозависимыми токенами: базовый блок — светлое
    исполнение «бумага и чернила», :global(.dark) — тёмное (исходное). */
 .stories {
-  /* --- светлая тема: бумага глубже основного фона сайта (#F5F1E8) --- */
-  --ss-ink-950: #eae3d2; /* фон секции, шторки, подложка .frames */
-  --ss-ink-500: #4a443b;
-  --ss-ink-300: #655e50; /* подписи: 5.0:1 на #EAE3D2 */
-  --ss-ink-100: #4a443b;
-  --ss-terra: #b4491a;
-  --ss-gold: #8c6d1f; /* тёмное золото для светлого фона */
+  /* --- светлая тема: тёплый крем глубже основного фона сайта (#FFFDF0) --- */
+  --ss-ink-950: #fbf3cf; /* фон секции, шторки, подложка .frames */
+  --ss-ink-500: #3f3820;
+  --ss-ink-300: #6b6552; /* подписи: ≥4.5:1 на креме */
+  --ss-ink-100: #2e2c1e;
+  --ss-terra: #8e751d; /* акцент — тёмное золото */
+  --ss-gold: #6b5a17; /* глубокое золото для светлого фона */
   --ss-mint: #1f6a5b; /* тёмная мята: ≥4.5:1 на бумаге */
-  --ss-paper: #1b1610; /* заголовки — тёмные ink */
-  --ss-track: rgba(27, 22, 16, 0.16); /* дорожка прогресс-бара */
-  --ss-ring: rgba(27, 22, 16, 0.12); /* обводка кадра */
-  --ss-shadow: 0 40px 80px -20px rgba(74, 58, 32, 0.22);
-  --ss-bignum: rgba(27, 22, 16, 0.1);
-  --ss-card-bg: linear-gradient(160deg, #fffcf5, #f5f1e8);
-  --ss-node-bg: rgba(27, 22, 16, 0.045);
-  --ss-node-border: rgba(27, 22, 16, 0.1);
-  --ss-stat-border: rgba(27, 22, 16, 0.1);
+  --ss-paper: #14140f; /* заголовки — тёмные ink */
+  --ss-track: rgba(20, 20, 15, 0.16); /* дорожка прогресс-бара */
+  --ss-ring: rgba(20, 20, 15, 0.12); /* обводка кадра */
+  --ss-shadow: 0 40px 80px -20px rgba(107, 90, 23, 0.22);
+  --ss-bignum: rgba(20, 20, 15, 0.09);
+  --ss-card-bg: linear-gradient(160deg, #fffef6, #fff8d6);
+  --ss-node-bg: rgba(20, 20, 15, 0.05);
+  --ss-node-border: rgba(20, 20, 15, 0.12);
+  --ss-stat-border: rgba(20, 20, 15, 0.12);
 
   height: 240vh;
   position: relative;
   background: var(--ss-ink-950);
 }
 
-/* --- тёмная тема: исходное исполнение секции ---
+/* --- тёмная тема: high-tech cyber (почти чёрный + жёлтый) ---
    (блок полностью глобальный: scoped-комбинатор после :global() не компилируется) */
 :global(.dark .stories) {
-  --ss-ink-950: #0e0b08;
-  --ss-ink-300: #8f8677;
-  --ss-ink-100: #e2dccb;
-  --ss-gold: #c99a2c;
-  --ss-mint: #3ba28c;
-  --ss-paper: #fffcf5;
-  --ss-track: rgba(226, 220, 203, 0.18);
-  --ss-ring: rgba(226, 220, 203, 0.08);
-  --ss-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.55);
-  --ss-bignum: rgba(226, 220, 203, 0.07);
-  --ss-card-bg: linear-gradient(160deg, #1d1712, #131009);
-  --ss-node-bg: rgba(226, 220, 203, 0.08);
-  --ss-node-border: rgba(226, 220, 203, 0.16);
-  --ss-stat-border: rgba(226, 220, 203, 0.12);
+  --ss-ink-950: #0a0a0b;
+  --ss-ink-300: #b9b28f;
+  --ss-ink-100: #fff5b8;
+  --ss-terra: #fcd116;
+  --ss-gold: #e0b90e;
+  --ss-mint: #7ee787;
+  --ss-paper: #ffffff;
+  --ss-track: rgba(255, 245, 184, 0.16);
+  --ss-ring: rgba(252, 209, 22, 0.14);
+  --ss-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+  --ss-bignum: rgba(252, 209, 22, 0.08);
+  --ss-card-bg: linear-gradient(160deg, #1a1a1e, #101012);
+  --ss-node-bg: rgba(252, 209, 22, 0.06);
+  --ss-node-border: rgba(252, 209, 22, 0.18);
+  --ss-stat-border: rgba(255, 245, 184, 0.12);
 }
 
 .mono {
@@ -330,8 +331,8 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
   height: 100dvh;
   overflow: hidden;
   background:
-    radial-gradient(1200px 700px at 78% 30%, rgba(180, 73, 26, 0.1), transparent 60%),
-    radial-gradient(900px 600px at 15% 80%, rgba(59, 162, 140, 0.07), transparent 60%),
+    radial-gradient(1200px 700px at 78% 30%, rgba(252, 209, 22, 0.09), transparent 60%),
+    radial-gradient(900px 600px at 15% 80%, rgba(142, 117, 29, 0.14), transparent 60%),
     var(--ss-ink-950);
   color: var(--ss-paper);
   display: grid;
@@ -514,13 +515,13 @@ tg.<span class="c-fn">notify</span>(<span class="c-str">`✔ договор по
 }
 .code-card {
   /* «Экран терминала»: тёмный в обеих темах, яркость синтаксиса фиксирована */
-  --ss-gold: #c99a2c;
-  --ss-mint: #3ba28c;
-  --ss-ink-300: #8f8677;
-  --ss-ink-100: #e2dccb;
+  --ss-gold: #fff5b8; /* строки */
+  --ss-mint: #7ee787; /* функции */
+  --ss-ink-300: #b9b28f;
+  --ss-ink-100: #fff5b8;
 
-  background: #1e1813;
-  color: #e2dccb;
+  background: #0d0d10;
+  color: #fff5b8;
   padding: 22px;
   font-size: 13.5px;
   line-height: 1.75;

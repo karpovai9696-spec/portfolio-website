@@ -200,7 +200,7 @@ const contacts = [
                   Открылось окно почтового клиента — письмо готово к отправке. Спасибо!
                 </p>
 
-                <p class="text-center text-xs text-ink-50 dark:text-[#A39B8B]">
+                <p class="text-center text-xs text-ink-50 dark:text-ink-300">
                   Форма откроет ваш почтовый клиент с заполненным письмом
                 </p>
               </div>
@@ -214,7 +214,7 @@ const contacts = [
             :href="person.telegram"
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center justify-center gap-3 rounded-2xl bg-primary px-6 py-5 text-lg font-bold text-white shadow-xl shadow-primary/30 transition-all duration-500 hover:-translate-y-1 hover:bg-primary-hover hover:shadow-2xl hover:shadow-primary/30"
+            class="group flex items-center justify-center gap-3 rounded-2xl bg-primary px-6 py-5 text-lg font-bold text-[#09090A] shadow-[0_0_20px_rgba(252,209,22,0.35)] transition-all duration-500 hover:-translate-y-1 hover:bg-primary-hover hover:shadow-[0_0_30px_rgba(252,209,22,0.5)]"
           >
             <Send
               class="h-6 w-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5"
@@ -231,21 +231,21 @@ const contacts = [
                 class="group/item flex items-center gap-4"
               >
                 <span
-                  class="rounded-xl bg-primary/10 p-3 text-primary transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-primary group-hover/item:text-white"
+                  class="rounded-xl bg-gold/10 p-3 text-gold transition-all duration-300 group-hover/item:scale-110 group-hover/item:bg-primary group-hover/item:text-[#09090A] dark:bg-primary/10 dark:text-primary"
                   aria-hidden="true"
                 >
                   <component :is="contact.icon" class="h-5 w-5" />
                 </span>
                 <div>
                   <p
-                    class="text-xs font-medium uppercase tracking-wide text-ink-50 dark:text-[#A39B8B]"
+                    class="text-xs font-medium uppercase tracking-wide text-ink-50 dark:text-ink-300"
                   >
                     {{ contact.label }}
                   </p>
                   <a
                     v-if="contact.href"
                     :href="contact.href"
-                    class="link-underline font-medium transition-colors hover:text-primary"
+                    class="link-underline font-medium transition-colors hover:text-gold dark:hover:text-primary"
                   >
                     {{ contact.value }}
                   </a>

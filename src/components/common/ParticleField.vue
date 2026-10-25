@@ -14,7 +14,7 @@ import type {
  *
  * - Three.js подгружается динамически (отдельный чанк) в момент простоя браузера
  *   (requestIdleCallback, таймаут 2.5 c) — не конкурирует с критическим путём.
- * - Частицы в тёплом терракотовом спектре (#E8703C → #8C6D1F), прозрачный canvas.
+ * - Частицы в жёлто-золотом cyber-спектре (#FCD116 → #8E751D), прозрачный canvas.
  * - Реакция на курсор: repel-деформация волны + parallax камеры.
  * - Пауза rAF: вкладка скрыта / Hero вне viewport / светлая тема.
  * - devicePixelRatio ≤ 2, на мобильных — уменьшенная сетка.
@@ -95,8 +95,8 @@ async function init(canvasEl: HTMLCanvasElement) {
   const base = new Float32Array(COUNT * 2) // исходные x/y
   const colors = new Float32Array(COUNT * 3)
 
-  const ember = new THREE.Color('#e8703c')
-  const gold = new THREE.Color('#8c6d1f')
+  const ember = new THREE.Color('#fcd116')
+  const gold = new THREE.Color('#8e751d')
   const tmpColor = new THREE.Color()
 
   let i = 0
@@ -125,10 +125,10 @@ async function init(canvasEl: HTMLCanvasElement) {
   geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3))
 
   const material: PointsMaterial = new THREE.PointsMaterial({
-    size: isMobile ? 0.05 : 0.07,
+    size: isMobile ? 0.045 : 0.06,
     vertexColors: true,
     transparent: true,
-    opacity: 0.45,
+    opacity: 0.28,
     depthWrite: false,
     blending: THREE.AdditiveBlending,
     sizeAttenuation: true,

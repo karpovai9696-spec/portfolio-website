@@ -51,7 +51,7 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
           <p class="text-4xl font-extrabold tracking-tight sm:text-5xl">
             <span class="text-gradient tabular-nums">{{ displayed[i] }}{{ stat.suffix }}</span>
           </p>
-          <p class="mt-2 text-sm text-ink-100 dark:text-[#A39B8B]">{{ stat.label }}</p>
+          <p class="mt-2 text-sm text-ink-100 dark:text-ink-300">{{ stat.label }}</p>
         </div>
       </div>
     </div>

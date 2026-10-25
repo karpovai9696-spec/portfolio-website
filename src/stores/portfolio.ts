@@ -8,7 +8,8 @@ export interface Project {
   description: string
   stack: string[]
   category: 'vue' | 'react' | 'fullstack'
-  gradient: string
+  /** Тип CSS-превью: тёмная админка или терминал с логами */
+  mock: 'admin' | 'terminal'
   demoUrl: string
   codeUrl: string
 }
@@ -187,51 +188,29 @@ export const usePortfolioStore = defineStore('portfolio', {
       { name: 'GraphQL', level: 35, label: 'Basic' },
     ] as SkillLevel[],
 
-    /* ---------- Портфолио (демо-проекты) ---------- */
+    /* ---------- Портфолио ---------- */
     projects: [
       {
         id: 1,
-        title: 'Интернет-магазин',
+        title: 'Агрегатор АМДЛП',
         description:
-          'Полнофункциональный магазин с каталогом, корзиной и оформлением заказа. Клиентская часть на Vue 3, серверная — на Node.js.',
-        stack: ['Vue 3', 'TypeScript', 'Pinia', 'Node.js', 'MongoDB'],
+          'Система мониторинга движения лекарственных препаратов. Криптография, УКЭП, логирование.',
+        stack: ['Web', 'Integration', 'Sec'],
         category: 'fullstack',
-        gradient: 'from-[#7d3413] via-[#B4491A] to-[#d97a3f]',
+        mock: 'admin',
         demoUrl: '#',
-        codeUrl: '#',
+        codeUrl: 'https://github.com/karpovai9696-spec',
       },
       {
         id: 2,
-        title: 'Task Manager',
+        title: 'Интеграционные шлюзы',
         description:
-          'Менеджер задач с досками, дедлайнами и синхронизацией в реальном времени. Авторизация и хранение данных — Firebase.',
-        stack: ['React', 'TypeScript', 'Firebase'],
-        category: 'react',
-        gradient: 'from-[#6b5310] via-[#8C6D1F] to-[#b89a3a]',
+          'Шлюзы обмена данными с государственными системами: маркировка, очереди запросов, ретраи и аудит операций.',
+        stack: ['Go', 'Python', 'REST', 'Docker'],
+        category: 'fullstack',
+        mock: 'terminal',
         demoUrl: '#',
-        codeUrl: '#',
-      },
-      {
-        id: 3,
-        title: 'Аналитический дашборд',
-        description:
-          'Дашборд с интерактивными графиками и фильтрами. Бэкенд на FastAPI с данными из PostgreSQL, визуализация — Chart.js.',
-        stack: ['Vue 3', 'Chart.js', 'FastAPI', 'PostgreSQL'],
-        category: 'vue',
-        gradient: 'from-[#3d3226] via-[#5c4c33] to-[#8a6f45]',
-        demoUrl: '#',
-        codeUrl: '#',
-      },
-      {
-        id: 4,
-        title: 'Корпоративный лендинг',
-        description:
-          'Многостраничный сайт компании на Nuxt.js с серверным рендерингом, оптимизацией под поисковые системы и высокой скоростью.',
-        stack: ['Nuxt.js', 'Tailwind', 'SEO'],
-        category: 'vue',
-        gradient: 'from-[#8a3a2e] via-[#a3502f] to-[#c97a4a]',
-        demoUrl: '#',
-        codeUrl: '#',
+        codeUrl: 'https://github.com/karpovai9696-spec',
       },
     ] as Project[],
 

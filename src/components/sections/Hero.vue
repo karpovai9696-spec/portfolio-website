@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { Download, Mail, MessageCircle, Phone, Send } from 'lucide-vue-next'
+import { ArrowRight, Download } from 'lucide-vue-next'
 
 import Button from '@/components/common/Button.vue'
+import HeroTerminal from '@/components/common/HeroTerminal.vue'
+import NetworkGraph from '@/components/common/NetworkGraph.vue'
 import ParticleField from '@/components/common/ParticleField.vue'
 import { scrollToTarget } from '@/composables/useLenis'
 import { usePortfolioStore } from '@/stores/portfolio'
@@ -11,9 +13,8 @@ const store = usePortfolioStore()
 const { person } = store
 
 /* ---------- Кинетическая типографика: имя по буквам ----------
-   Баг-фикс: буквы сгруппированы по СЛОВАМ, каждое слово —
-   whitespace-nowrap обёртка, перенос строки возможен только
-   между словами (а здесь слова вообще идут отдельными строками). */
+   Буквы сгруппированы по словам (whitespace-nowrap), перенос
+   возможен только между словами. Первое слово — жёлтое. */
 const nameWords = computed(() =>
   person.name.toUpperCase().split(' ').map((word) => word.split('')),
 )
@@ -26,13 +27,8 @@ function letterIndex(wordIndex: number, charIndex: number): number {
   return offset + charIndex
 }
 
-/* ---------- Типографский Hero ----------
-   - тёплая бумага + тонкая сетка + одно тёплое свечение (без видео/aurora);
-   - кинетическая типографика имени сохранена. */
-
-/* ---------- Эффект печатающегося текста ---------- */
-const phrases = ['Лендинги', 'Веб-приложения', 'Интернет-магазины', 'SPA на Vue/React']
-const typed = ref('')
+/* ---------- Теги специализации ---------- */
+const tags = ['Node.js', 'Go', 'Python', 'API', 'Cryptography', 'React', 'Docker']
 
 let timer: ReturnType<typeof setTimeout> | null = null
 let cancelled = false
@@ -43,29 +39,8 @@ function schedule(fn: () => void, delay: number) {
   }, delay)
 }
 
-function typeLoop(phraseIndex: number, charIndex: number, deleting: boolean) {
-  const phrase = phrases[phraseIndex]
-  if (!deleting) {
-    typed.value = phrase.slice(0, charIndex + 1)
-    if (charIndex + 1 === phrase.length) {
-      schedule(() => typeLoop(phraseIndex, phrase.length, true), 1900)
-    } else {
-      schedule(() => typeLoop(phraseIndex, charIndex + 1, false), 65 + Math.random() * 55)
-    }
-  } else {
-    typed.value = phrase.slice(0, charIndex - 1)
-    if (charIndex - 1 <= 0) {
-      schedule(() => typeLoop((phraseIndex + 1) % phrases.length, 0, false), 400)
-    } else {
-      schedule(() => typeLoop(phraseIndex, charIndex - 1, true), 32)
-    }
-  }
-}
-
 onMounted(() => {
-  // Каскадный reveal имени по буквам и печатающийся текст — всегда
   schedule(() => (lettersIn.value = true), 120)
-  schedule(() => typeLoop(0, 0, false), 900)
 })
 
 onBeforeUnmount(() => {
@@ -73,8 +48,8 @@ onBeforeUnmount(() => {
   if (timer) clearTimeout(timer)
 })
 
-function scrollToContact() {
-  scrollToTarget('#contact')
+function scrollToProjects() {
+  scrollToTarget('#portfolio')
 }
 </script>
 
@@ -84,217 +59,126 @@ function scrollToContact() {
     class="relative flex min-h-screen flex-col overflow-hidden"
     aria-label="Приветствие"
   >
-    <!-- Фон: тонкая сетка + одно тёплое терракотовое свечение (обе темы) -->
+    <!-- Фон: тонкая сетка + жёлтое свечение (обе темы) -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
       <div class="bg-grid absolute inset-0" />
       <div
-        class="absolute -left-40 top-1/4 h-[30rem] w-[30rem] rounded-full bg-primary/[0.08] blur-3xl dark:bg-primary/[0.12]"
+        class="absolute -right-40 top-1/4 h-[30rem] w-[30rem] rounded-full bg-primary/[0.07] blur-3xl dark:bg-primary/[0.1]"
       />
       <div
-        class="absolute -right-40 bottom-0 h-[26rem] w-[26rem] rounded-full bg-accent/[0.06] blur-3xl dark:bg-accent/[0.08]"
+        class="absolute -left-40 bottom-0 h-[26rem] w-[26rem] rounded-full bg-gold/[0.06] blur-3xl dark:bg-gold/[0.1]"
       />
     </div>
 
-    <!-- WebGL-поле частиц (только тёмная тема; тёплые тона, под контентом) -->
+    <!-- WebGL-поле частиц (только тёмная тема; под контентом) -->
     <ParticleField />
 
-    <!-- Editorial-контент во всю ширину -->
-    <div class="relative z-10 flex min-h-screen flex-col px-[5vw] pb-6 pt-24 sm:pt-28">
-      <!-- Верхняя строка: приветствие слева, meta-блок справа -->
-      <div class="flex items-start justify-between gap-6">
+    <!-- Контент: две колонки -->
+    <div
+      class="section-container relative z-10 grid flex-1 items-center gap-12 pb-16 pt-28 sm:pt-32 lg:grid-cols-12 lg:gap-8"
+    >
+      <!-- Левая колонка: идентификация -->
+      <div class="lg:col-span-7">
         <p
-          class="animate-fade-in-up font-mono text-xs tracking-[0.25em] text-ink-50 [animation-delay:80ms] dark:text-ink-400 sm:text-sm"
+          class="animate-fade-in-up font-mono text-xs tracking-[0.25em] text-ink-100 [animation-delay:80ms] dark:text-ink-300 sm:text-sm"
         >
-          Привет, меня зовут
+          // системный инженер · казань
+        </p>
+
+        <h1
+          class="mt-5 font-display text-[clamp(2.5rem,7vw,3.5rem)] font-extrabold leading-[1.05] tracking-tight"
+          :class="{ 'letters-in': lettersIn }"
+          :aria-label="person.name"
+        >
+          <span class="block whitespace-nowrap" aria-hidden="true">
+            <span
+              v-for="(letter, i) in nameWords[0]"
+              :key="`w0-${i}`"
+              class="kinetic-mask"
+            ><span
+                class="kinetic-letter text-gold dark:text-primary"
+                :style="{ '--letter-index': letterIndex(0, i) }"
+              >{{ letter }}</span></span>
+          </span>
+          <span class="block whitespace-nowrap" aria-hidden="true">
+            <span
+              v-for="(letter, i) in nameWords[1]"
+              :key="`w1-${i}`"
+              class="kinetic-mask"
+            ><span
+                class="kinetic-letter text-ink-800 dark:text-white"
+                :style="{ '--letter-index': letterIndex(1, i) }"
+              >{{ letter }}</span></span>
+          </span>
+        </h1>
+
+        <p
+          class="mt-5 animate-fade-in-up font-mono text-sm font-semibold uppercase tracking-widest text-gold [animation-delay:600ms]"
+        >
+          Full-Stack разработчик / Системный инженер
+        </p>
+
+        <p
+          class="mt-5 max-w-[520px] animate-fade-in-up text-base leading-relaxed text-ink-700 [animation-delay:700ms] dark:text-[#FFF5B8]/80"
+        >
+          Создаю сложные веб-системы, интеграции и высоконагруженные сервисы.
+          Специализируюсь на автоматизации, криптографии и работе с государственными
+          системами (МДЛП/ГИС).
         </p>
 
         <div
-          class="animate-fade-in-up text-right font-mono text-[11px] leading-relaxed tracking-wider text-ink-50 [animation-delay:200ms] dark:text-ink-400 sm:text-xs"
+          class="mt-8 flex animate-fade-in-up flex-col gap-3 [animation-delay:800ms] sm:flex-row sm:flex-wrap"
         >
-          <p class="font-semibold text-ink-700 dark:text-paper">FULL STACK DEVELOPER</p>
-          <p class="mt-1">Казань, Россия</p>
-          <p class="mt-1 inline-flex items-center justify-end gap-2">
-            <span class="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span
-                class="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-600 opacity-75"
-              />
-              <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-600" />
-            </span>
-            открыт для новых проектов
-          </p>
+          <Button
+            size="md"
+            magnetic
+            class="w-full sm:w-auto"
+            aria-label="Посмотреть проекты — перейти к портфолио"
+            @click="scrollToProjects"
+          >
+            <ArrowRight class="h-5 w-5" aria-hidden="true" />
+            Посмотреть проекты
+          </Button>
+          <Button
+            size="md"
+            variant="outline"
+            magnetic
+            class="w-full sm:w-auto"
+            :href="person.resume"
+            download
+            aria-label="Скачать резюме в формате PDF"
+          >
+            <Download class="h-5 w-5" aria-hidden="true" />
+            Скачать резюме
+          </Button>
         </div>
+
+        <!-- Теги стека -->
+        <ul
+          class="mt-8 flex animate-fade-in-up flex-wrap gap-2 [animation-delay:900ms]"
+          aria-label="Ключевые технологии"
+        >
+          <li
+            v-for="tag in tags"
+            :key="tag"
+            class="rounded-md border border-gold/30 bg-paper-raised px-3 py-1.5 font-mono text-xs font-medium text-ink-700 transition-colors hover:border-gold/60 dark:border-gold/30 dark:bg-ink-900 dark:text-[#FFF5B8]/90 dark:hover:border-primary/50"
+          >
+            {{ tag }}
+          </li>
+        </ul>
       </div>
 
-      <!-- Имя стэком: два слова — две строки, левый край; display-антиква -->
-      <h1
-        class="mt-8 font-display text-[clamp(3.5rem,16.5vw,15rem)] font-black leading-[0.9] tracking-[-0.02em] sm:mt-12"
-        :class="{ 'letters-in': lettersIn }"
-        :aria-label="person.name"
-      >
-        <span class="block whitespace-nowrap" aria-hidden="true">
-          <span
-            v-for="(letter, i) in nameWords[0]"
-            :key="`w0-${i}`"
-            class="kinetic-mask"
-          ><span
-              class="kinetic-letter text-gradient"
-              :style="{ '--letter-index': letterIndex(0, i) }"
-            >{{ letter }}</span></span>
-        </span>
-        <span class="block whitespace-nowrap" aria-hidden="true">
-          <span
-            v-for="(letter, i) in nameWords[1]"
-            :key="`w1-${i}`"
-            class="kinetic-mask"
-          ><span
-              class="kinetic-letter hero-outline"
-              :style="{ '--letter-index': letterIndex(1, i) }"
-            >{{ letter }}</span></span>
-        </span>
-      </h1>
-
-      <!-- Печатающийся текст рядом со второй строкой -->
-      <p
-        class="mt-5 flex h-8 animate-fade-in-up items-center font-mono text-base [animation-delay:650ms] sm:text-lg"
-      >
-        <span class="mr-2 text-ink-50 dark:text-ink-400" aria-hidden="true">&gt;</span>
-        <span class="text-gradient font-semibold">{{ typed }}</span>
-        <span
-          class="ml-0.5 inline-block h-5 w-[2px] animate-blink bg-primary dark:bg-[#e8703c]"
-          aria-hidden="true"
-        />
-      </p>
-
-      <!-- Бенто-плитки фактов (bentogrids-паттерн) -->
-      <div
-        class="mt-8 grid grid-cols-2 gap-2.5 [animation-delay:800ms] animate-fade-in-up sm:gap-3 lg:grid-cols-4"
-      >
+      <!-- Правая колонка: терминал + сетевой граф -->
+      <div class="relative animate-fade-in-up [animation-delay:500ms] lg:col-span-5">
         <div
-          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
-        >
-          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">6+</p>
-          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
-            лет в разработке
-          </p>
-        </div>
-        <div
-          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
-        >
-          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">28</p>
-          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
-            технологий в стеке
-          </p>
-        </div>
-        <div
-          class="rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
-        >
-          <p class="font-display text-3xl font-black text-primary dark:text-[#e8703c]">7</p>
-          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
-            направлений услуг
-          </p>
-        </div>
-        <div
-          class="flex flex-col justify-between rounded-xl border border-hairline bg-paper-raised/80 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 dark:border-white/10 dark:bg-ink-900/50"
-        >
-          <p class="font-mono text-[11px] font-medium leading-snug text-ink-700 dark:text-[#C9C2B4]">
-            Vue · React<br />Node · TypeScript
-          </p>
-          <p class="mt-1 font-mono text-[10px] uppercase tracking-wider text-ink-100 dark:text-[#A39B8B]">
-            основной стек
-          </p>
-        </div>
-      </div>
-
-      <!-- Нижняя часть: описание + кнопки слева, scroll-индикатор справа -->
-      <div
-        class="mt-auto flex flex-col gap-8 pt-12 lg:flex-row lg:items-end lg:justify-between"
-      >
-        <div class="max-w-[420px]">
-          <p
-            class="animate-fade-in-up text-sm leading-relaxed text-ink-100 [animation-delay:750ms] dark:text-ink-300 sm:text-base"
-          >
-            {{ person.tagline }}
-          </p>
-
-          <div
-            class="mt-6 flex animate-fade-in-up flex-col gap-3 [animation-delay:850ms] sm:flex-row sm:flex-wrap"
-          >
-            <Button
-              size="md"
-              magnetic
-              class="w-full sm:w-auto"
-              aria-label="Связаться — перейти к форме связи"
-              @click="scrollToContact"
-            >
-              <MessageCircle class="h-5 w-5" aria-hidden="true" />
-              Связаться
-            </Button>
-            <Button
-              size="md"
-              variant="outline"
-              magnetic
-              class="w-full sm:w-auto"
-              :href="person.resume"
-              download
-              aria-label="Скачать резюме в формате PDF"
-            >
-              <Download class="h-5 w-5" aria-hidden="true" />
-              Скачать резюме
-            </Button>
-          </div>
-
-          <!-- Соцссылки -->
-          <div
-            class="mt-6 flex animate-fade-in-up items-center gap-3 [animation-delay:950ms]"
-          >
-            <a
-              :href="person.telegram"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="glass rounded-xl p-2.5 text-ink-100 transition-all duration-300 hover:-translate-y-1 hover:text-primary dark:text-ink-400"
-              aria-label="Написать в Telegram"
-            >
-              <Send class="h-5 w-5" aria-hidden="true" />
-            </a>
-            <a
-              :href="`mailto:${person.email}`"
-              class="glass rounded-xl p-2.5 text-ink-100 transition-all duration-300 hover:-translate-y-1 hover:text-primary dark:text-ink-400"
-              aria-label="Написать на email"
-            >
-              <Mail class="h-5 w-5" aria-hidden="true" />
-            </a>
-            <a
-              :href="person.phoneHref"
-              class="glass rounded-xl p-2.5 text-ink-100 transition-all duration-300 hover:-translate-y-1 hover:text-primary dark:text-ink-400"
-              aria-label="Позвонить"
-            >
-              <Phone class="h-5 w-5" aria-hidden="true" />
-            </a>
-          </div>
-        </div>
-
-        <!-- Scroll-индикатор справа -->
-        <div
-          class="hidden animate-fade-in-up items-center gap-3 font-mono text-[11px] tracking-[0.25em] text-ink-50 [animation-delay:1050ms] dark:text-ink-400 lg:flex"
+          class="pointer-events-none absolute -inset-10 opacity-70 sm:-inset-14"
           aria-hidden="true"
         >
-          <span class="[writing-mode:vertical-rl]">SCROLL</span>
-          <span
-            class="flex h-10 w-6 items-start justify-center rounded-full border-2 border-ink-50/60 p-1.5 dark:border-ink-400/60"
-          >
-            <span
-              class="h-2 w-1 animate-scroll-dot rounded-full bg-primary dark:bg-[#e8703c]"
-            />
-          </span>
+          <NetworkGraph />
         </div>
-      </div>
-
-      <!-- Нижняя кромка: тонкая линия + mono-мелочь -->
-      <div
-        class="mt-6 flex animate-fade-in-up items-center justify-between border-t border-hairline pt-4 font-mono text-[11px] tracking-wider text-ink-50 [animation-delay:1100ms] dark:border-white/10 dark:text-ink-400"
-      >
-        <span>©2026 — v3.0</span>
-        <span class="hidden sm:inline">55.7887° N, 49.1221° E — KAZAN</span>
+        <div class="relative">
+          <HeroTerminal />
+        </div>
       </div>
     </div>
   </section>

@@ -5,35 +5,44 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Терракотовый акцент — единственный цветовой акцент системы
+        // High-tech yellow — основной акцент (тёмная тема)
         primary: {
-          DEFAULT: '#B4491A',
-          hover: '#97380F',
-          soft: '#B4491A',
+          DEFAULT: '#FCD116',
+          hover: '#E3BC0E',
+          soft: '#FCD116',
         },
-        // Приглушённая охра — вторичный акцент (только для мелких меток)
-        accent: '#8C6D1F',
-        // Тёплая бумага и чернила (editorial-палитра)
+        // Тёмное золото — акцент для текста на светлой теме и вторичные метки
+        accent: '#8E751D',
+        gold: '#8E751D',
+        golddeep: '#6B5A17',
+        // Cyber-палитра (тёмная тема)
+        cyber: {
+          bg: '#09090A',
+          card: '#17171A',
+          text: '#FFF5B8',
+          muted: '#3F3820',
+        },
+        // Светлая тема — производная: тёплый кремовый фон, тёмные чернила
         paper: {
-          DEFAULT: '#F5F1E8',
-          soft: '#EFEBDF',
-          raised: '#FFFCF5',
+          DEFAULT: '#FFFDF0',
+          soft: '#FFF8D6',
+          raised: '#FFFEF6',
         },
         ink: {
-          50: '#6E6656',
-          100: '#6E6656',
-          300: '#C4B9A4',
-          400: '#8F8677',
-          500: '#6E6656',
-          700: '#4A443B',
-          800: '#241E15',
-          900: '#1B1610',
-          950: '#14100C',
+          50: '#6B6552',
+          100: '#6B6552',
+          300: '#B9B28F', // приглушённый текст на тёмном (~7.5:1 на #09090A)
+          400: '#8F8A6E',
+          500: '#6B6552',
+          700: '#2E2C1E', // основной текст на светлом (~12:1 на #FFFDF0)
+          800: '#1F1F23',
+          900: '#17171A',
+          950: '#09090A',
         },
-        hairline: '#E2DCCB',
+        hairline: '#E6E0C2',
       },
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        display: ['Montserrat', 'Inter', 'system-ui', 'sans-serif'],
         sans: [
           'Inter',
           'system-ui',

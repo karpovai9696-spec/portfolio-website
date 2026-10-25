@@ -68,21 +68,21 @@ function cardSpan(index: number): string {
           <div class="relative">
             <div class="flex items-start justify-between">
               <div
-                class="inline-flex rounded-2xl bg-primary p-3 text-white shadow-lg shadow-primary/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                class="inline-flex rounded-2xl bg-primary p-3 text-[#09090A] shadow-[0_0_15px_rgba(252,209,22,0.3)] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
               >
                 <component :is="iconMap[service.icon]" class="h-6 w-6" aria-hidden="true" />
               </div>
               <span
-                class="font-mono text-4xl font-bold text-ink-400 transition-colors duration-300 group-hover:text-primary/40 dark:text-white/40 dark:group-hover:text-primary/50"
+                class="font-mono text-4xl font-bold text-ink-400 transition-colors duration-300 group-hover:text-gold/40 dark:text-white/25 dark:group-hover:text-primary/50"
                 aria-hidden="true"
               >
                 {{ String(service.id).padStart(2, '0') }}
               </span>
             </div>
-            <h3 class="font-display mt-4 text-lg font-semibold transition-colors duration-300 group-hover:text-primary">
+            <h3 class="font-display mt-4 text-lg font-semibold transition-colors duration-300 group-hover:text-gold dark:group-hover:text-primary">
               {{ service.title }}
             </h3>
-            <p class="mt-2 text-sm leading-relaxed text-ink-100 dark:text-[#A39B8B]">
+            <p class="mt-2 text-sm leading-relaxed text-ink-100 dark:text-ink-300">
               {{ service.description }}
             </p>
           </div>
@@ -91,11 +91,11 @@ function cardSpan(index: number): string {
         <!-- Карточка-призыв -->
         <a
           href="#contact"
-          class="reveal-child group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-primary/40 p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary/5"
+          class="reveal-child group flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-gold/40 p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:bg-gold/5 dark:border-primary/40 dark:hover:border-primary dark:hover:bg-primary/5"
           :style="staggerStyle(services.length, 80)"
         >
           <span class="text-gradient text-lg font-semibold">Нужно что-то другое?</span>
-          <span class="mt-2 text-sm text-ink-100 dark:text-[#A39B8B]">
+          <span class="mt-2 text-sm text-ink-100 dark:text-ink-300">
             Напишите мне — обсудим вашу задачу и подберём решение
           </span>
         </a>

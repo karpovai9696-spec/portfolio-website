@@ -14,7 +14,7 @@ onMounted(() => {
 
 <template>
   <div
-    class="min-h-screen bg-paper text-ink-700 transition-colors duration-300 dark:bg-ink-950 dark:text-[#A39B8B]"
+    class="min-h-screen bg-paper text-ink-700 transition-colors duration-300 dark:bg-ink-950 dark:text-ink-300 cyber-body-bg"
   >
     <!-- Film-grain текстура поверх всего сайта -->
     <div class="noise-overlay" aria-hidden="true" />

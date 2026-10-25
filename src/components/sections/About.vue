@@ -48,19 +48,19 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
           <Card class="mt-6" :hover="false" spotlight>
             <ul class="relative space-y-3 text-sm">
               <li class="flex items-center gap-3">
-                <Cake class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-ink-100 dark:text-[#A39B8B]">Возраст:</span>
-                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.age }} года</span>
+                <Cake class="h-4 w-4 shrink-0 text-gold dark:text-primary" aria-hidden="true" />
+                <span class="text-ink-100 dark:text-ink-300">Возраст:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#FFF5B8]/90">{{ person.age }} года</span>
               </li>
               <li class="flex items-center gap-3">
-                <MapPin class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-ink-100 dark:text-[#A39B8B]">Город:</span>
-                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.city }}</span>
+                <MapPin class="h-4 w-4 shrink-0 text-gold dark:text-primary" aria-hidden="true" />
+                <span class="text-ink-100 dark:text-ink-300">Город:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#FFF5B8]/90">{{ person.city }}</span>
               </li>
               <li class="flex items-center gap-3">
-                <Languages class="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                <span class="text-ink-100 dark:text-[#A39B8B]">Языки:</span>
-                <span class="ml-auto font-medium text-ink-800 dark:text-[#A39B8B]">{{ person.languages }}</span>
+                <Languages class="h-4 w-4 shrink-0 text-gold dark:text-primary" aria-hidden="true" />
+                <span class="text-ink-100 dark:text-ink-300">Языки:</span>
+                <span class="ml-auto font-medium text-ink-800 dark:text-[#FFF5B8]/90">{{ person.languages }}</span>
               </li>
             </ul>
           </Card>
@@ -69,11 +69,11 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
         <!-- Текст -->
         <div ref="textBlock" class="reveal-right lg:col-span-3">
           <h3 class="text-2xl font-bold">
-            {{ person.role }} <span class="text-ink-50 dark:text-[#A39B8B]">/</span>
+            {{ person.role }} <span class="text-ink-50 dark:text-ink-300">/</span>
             <span class="text-gradient">Фрилансер</span>
           </h3>
 
-          <div class="mt-5 space-y-4 leading-relaxed text-ink-700 dark:text-[#C9C2B4]">
+          <div class="mt-5 space-y-4 leading-relaxed text-ink-700 dark:text-[#FFF5B8]/70">
             <p v-for="(paragraph, i) in person.aboutText" :key="i">{{ paragraph }}</p>
           </div>
 
@@ -83,10 +83,10 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
             <li
               v-for="(quality, i) in person.qualities"
               :key="quality"
-              class="reveal-child flex items-center gap-2.5 rounded-xl border border-hairline bg-paper-raised px-4 py-3 text-sm font-medium transition-colors hover:border-primary/40 dark:border-white/10 dark:bg-white/5"
+              class="reveal-child flex items-center gap-2.5 rounded-xl border border-hairline bg-paper-raised px-4 py-3 text-sm font-medium transition-colors hover:border-gold/40 dark:border-white/10 dark:bg-white/5 dark:hover:border-primary/40"
               :style="staggerStyle(i, 90, 200)"
             >
-              <CheckCircle2 class="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+              <CheckCircle2 class="h-5 w-5 shrink-0 text-gold dark:text-primary" aria-hidden="true" />
               {{ quality }}
             </li>
           </ul>
@@ -96,7 +96,7 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
       <!-- Образование -->
       <div ref="eduBlock" class="reveal mt-16">
         <h3 class="mb-6 flex items-center gap-3 text-xl font-bold">
-          <GraduationCap class="h-6 w-6 text-primary" aria-hidden="true" />
+          <GraduationCap class="h-6 w-6 text-gold dark:text-primary" aria-hidden="true" />
           Образование и курсы
         </h3>
         <div class="grid gap-4 sm:grid-cols-2">
@@ -107,11 +107,11 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
             class="reveal-child"
             :style="staggerStyle(i, 100)"
           >
-            <p class="relative text-xs font-semibold uppercase tracking-wide text-primary dark:text-[#e8703c]">
+            <p class="relative text-xs font-semibold uppercase tracking-wide text-gold dark:text-primary">
               {{ item.period }}
             </p>
             <h4 class="relative mt-1.5 font-semibold">{{ item.title }}</h4>
-            <p class="relative mt-1 text-sm text-ink-100 dark:text-[#A39B8B]">
+            <p class="relative mt-1 text-sm text-ink-100 dark:text-ink-300">
               {{ item.organization }}
             </p>
           </Card>
