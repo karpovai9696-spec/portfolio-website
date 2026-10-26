@@ -7,11 +7,10 @@ export interface Project {
   title: string
   description: string
   stack: string[]
-  category: 'vue' | 'react' | 'fullstack'
-  /** Тип CSS-превью: тёмная админка или терминал с логами */
-  mock: 'admin' | 'terminal'
-  demoUrl: string
-  codeUrl: string
+  /** Тип CSS/SVG-превью карточки */
+  mock: 'kanban' | 'admin' | 'tokens' | 'landing' | 'miniapp' | 'vpn'
+  /** Статус проекта: production — жёлтый бейдж, остальные — gold outline */
+  status: 'production' | 'ready' | 'designed'
 }
 
 export interface SkillCategory {
@@ -188,29 +187,61 @@ export const usePortfolioStore = defineStore('portfolio', {
       { name: 'GraphQL', level: 35, label: 'Basic' },
     ] as SkillLevel[],
 
-    /* ---------- Портфолио ---------- */
+    /* ---------- Портфолио: реальные проекты ---------- */
     projects: [
       {
         id: 1,
-        title: 'Агрегатор АМДЛП',
+        title: 'Корпоративный портал «КД Портал»',
         description:
-          'Система мониторинга движения лекарственных препаратов. Криптография, УКЭП, логирование.',
-        stack: ['Web', 'Integration', 'Sec'],
-        category: 'fullstack',
-        mock: 'admin',
-        demoUrl: '#',
-        codeUrl: 'https://github.com/karpovai9696-spec',
+          'Собственный корпоративный портал для компании на 20 сотрудников: задачи и канбан, согласования, файловый диск с онлайн-просмотром, видеозвонки, синхронизация с Битрикс24 по REST API.',
+        stack: ['React', 'FastAPI', 'Python', 'SQLite', 'REST API Битрикс24', 'Tailwind'],
+        mock: 'kanban',
+        status: 'production',
       },
       {
         id: 2,
-        title: 'Интеграционные шлюзы',
+        title: 'Агрегатор МДЛП «Честный ЗНАК»',
         description:
-          'Шлюзы обмена данными с государственными системами: маркировка, очереди запросов, ретраи и аудит операций.',
-        stack: ['Go', 'Python', 'REST', 'Docker'],
-        category: 'fullstack',
-        mock: 'terminal',
-        demoUrl: '#',
-        codeUrl: 'https://github.com/karpovai9696-spec',
+          'Мультитенантная платформа учёта лекарств для аптечной сети: обмен с ФГИС МДЛП, электронная подпись УКЭП через КриптоПро, разделённые контуры и mTLS-безопасность.',
+        stack: ['Python', 'React', 'PostgreSQL', 'Docker', 'КриптоПро CSP', 'УКЭП', 'mTLS'],
+        mock: 'admin',
+        status: 'production',
+      },
+      {
+        id: 3,
+        title: 'Сетевая система доступа к ЭЦП',
+        description:
+          '4 USB-токена электронной подписи обслуживают 5 сотрудников по сети: контроль доступа по IP, журналирование, веб-панель администратора, автопереподключение.',
+        stack: ['Windows Services', 'КриптоПро', 'VirtualHere', 'PowerShell', 'SQLite'],
+        mock: 'tokens',
+        status: 'production',
+      },
+      {
+        id: 4,
+        title: 'Сайт тренажёрного зала «Динамит»',
+        description:
+          'Лендинг для тренажёрного зала в Казани: четыре итерации дизайна по обратной связи владельца, адаптивная вёрстка, форма записи.',
+        stack: ['HTML/CSS/JS', 'Адаптив', 'Формы'],
+        mock: 'landing',
+        status: 'ready',
+      },
+      {
+        id: 5,
+        title: 'Telegram Mini App «Штаб»',
+        description:
+          'Фитнес-приложение внутри Telegram с подпиской, геймификацией и дневником прогресса: полное ТЗ, архитектура, приём платежей, админ-панель.',
+        stack: ['Telegram Mini Apps', 'Bot API', 'Подписки', 'Геймификация'],
+        mock: 'miniapp',
+        status: 'designed',
+      },
+      {
+        id: 6,
+        title: 'Защищённая VPN-инфраструктура',
+        description:
+          'Отказоустойчивый защищённый доступ для команды: несколько протоколов с маскировкой трафика, автоматическая ротация, QR-подписки, миграция сервера одним скриптом за 15 минут.',
+        stack: ['Linux', 'Xray', 'VLESS/Reality', 'Hysteria2', 'DevOps'],
+        mock: 'vpn',
+        status: 'production',
       },
     ] as Project[],
 
@@ -272,14 +303,4 @@ export const usePortfolioStore = defineStore('portfolio', {
       },
     ] as EducationItem[],
   }),
-
-  getters: {
-    /** Проекты, отфильтрованные по категории ('all' — все) */
-    filteredProjects: (state) => {
-      return (filter: string): Project[] => {
-        if (filter === 'all') return state.projects
-        return state.projects.filter((p) => p.category === filter)
-      }
-    },
-  },
 })
