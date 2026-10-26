@@ -66,7 +66,7 @@ export const usePortfolioStore = defineStore('portfolio', {
       phone: '8 909 308 77 67',
       phoneHref: 'tel:+79093087767',
       workHours: 'Пн–Пт, 10:00–19:00 МСК',
-      photo: 'images/photo.jpg',
+      photo: 'images/photo.png',
       resume: 'resume.pdf',
       tagline:
         'Разрабатываю современные веб-приложения на Vue.js и React — от лендингов до сложных SPA. ' +

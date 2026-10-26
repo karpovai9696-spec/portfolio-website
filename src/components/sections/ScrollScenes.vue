@@ -192,8 +192,8 @@ onBeforeUnmount(() => {
         <!-- Сцена 1: фото (целиком: contain + размытая подложка из того же фото) -->
         <div class="frame frame-photo" data-i="0">
           <div class="zoom">
-            <img class="backdrop" src="/images/photo.jpg" alt="" aria-hidden="true" />
-            <img class="photo" src="/images/photo.jpg" alt="Михаил Карпов" />
+            <img class="backdrop" src="/images/photo.png" alt="" aria-hidden="true" />
+            <img class="photo" src="/images/photo.png" alt="Михаил Карпов" />
           </div>
           <div class="wipe"></div>
         </div>
