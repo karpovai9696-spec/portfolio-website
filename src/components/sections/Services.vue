@@ -14,6 +14,7 @@ import Card from '@/components/common/Card.vue'
 import GhostTitle from '@/components/common/GhostTitle.vue'
 import SectionTitle from '@/components/common/SectionTitle.vue'
 import { staggerStyle, useScrollAnimation } from '@/composables/useScrollAnimation'
+import { serviceDetails } from '@/data/serviceDetails'
 import { usePortfolioStore } from '@/stores/portfolio'
 
 const store = usePortfolioStore()
@@ -85,6 +86,29 @@ function cardSpan(index: number): string {
             <p class="mt-2 text-sm leading-relaxed text-ink-100 dark:text-ink-300">
               {{ service.description }}
             </p>
+
+            <div
+              v-if="serviceDetails[service.id]"
+              class="mt-4 border-t border-ink-400/20 pt-4 dark:border-white/10"
+            >
+              <p class="font-mono text-[11px] uppercase tracking-[0.16em] text-gold/80 dark:text-primary/80">
+                Что входит
+              </p>
+              <ul class="mt-2 space-y-1.5">
+                <li
+                  v-for="item in serviceDetails[service.id].details"
+                  :key="item"
+                  class="flex items-start gap-2 text-xs leading-relaxed text-ink-100 dark:text-ink-300"
+                >
+                  <span class="mt-px shrink-0 font-mono text-gold dark:text-primary" aria-hidden="true">→</span>
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+              <p class="mt-3 text-xs leading-relaxed text-ink-100 dark:text-ink-300">
+                <span class="font-semibold text-ink-50 dark:text-white">Результат:</span>
+                {{ serviceDetails[service.id].result }}
+              </p>
+            </div>
           </div>
         </Card>
 
