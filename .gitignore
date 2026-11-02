@@ -42,3 +42,5 @@ preview.log
 
 # Сгенерированные бинарные документы
 vizitka.pdf
+
+.tmp-build/
