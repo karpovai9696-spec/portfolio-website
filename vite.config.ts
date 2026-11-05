@@ -55,4 +55,18 @@ export default defineConfig({
     // (например, `npm run dev -- --port 7100`) должны переопределять конфиг.
     port: 5173,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        // Vue-стек отдельным чанком: меняется реже кода сайта, значит
+        // остаётся в кеше между релизами и грузится параллельно с entry.
+        manualChunks(id: string) {
+          if (/[\\/]node_modules[\\/](@vue|vue|vue-router|pinia)[\\/]/.test(id)) {
+            return 'vendor-vue'
+          }
+          return undefined
+        },
+      },
+    },
+  },
 })
