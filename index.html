@@ -41,13 +41,8 @@
     />
     <meta name="twitter:image" content="%BASE_URL%images/photo.jpg" />
 
-    <!-- Шрифты: Montserrat (display/заголовки, кириллица), Inter (текст), JetBrains Mono (метки) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Шрифты: локальные woff2 (Montserrat/Inter/JetBrains Mono, latin+cyrillic),
+         @font-face с font-display: swap — src/assets/fonts/fonts.css -->
 
     <!-- Фон до загрузки CSS, чтобы не было белой вспышки -->
     <style>
