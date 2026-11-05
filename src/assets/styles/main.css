@@ -316,8 +316,8 @@
 .kinetic-letter {
   display: inline-block;
   transform: translateY(115%);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--letter-index, 0) * 45ms + 150ms);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--letter-index, 0) * 25ms + 60ms);
   will-change: transform;
 }
 
