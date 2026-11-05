@@ -21,6 +21,9 @@ import type Lenis from 'lenis'
 
 import { createLenis } from '@/composables/useLenis'
 
+/** public/ image URL с учётом base GitHub Pages */
+const photoUrl = `${import.meta.env.BASE_URL}images/photo.webp`
+
 const KICKERS = [
   'scene 01 — разработчик',
   'scene 02 — код',
@@ -192,8 +195,8 @@ onBeforeUnmount(() => {
         <!-- Сцена 1: фото (целиком: contain + размытая подложка из того же фото) -->
         <div class="frame frame-photo" data-i="0">
           <div class="zoom">
-            <img class="backdrop" src="/images/photo.png" alt="" aria-hidden="true" />
-            <img class="photo" src="/images/photo.png" alt="Михаил Карпов" />
+            <img class="backdrop" :src="photoUrl" alt="" aria-hidden="true" width="1024" height="1024" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='images/photo.png'" />
+            <img class="photo" :src="photoUrl" alt="Михаил Карпов" width="1024" height="1024" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='images/photo.png'" />
           </div>
           <div class="wipe"></div>
         </div>

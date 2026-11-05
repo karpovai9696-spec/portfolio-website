@@ -48,6 +48,17 @@ onMounted(() => {
   const canvasEl = canvas.value
   if (!canvasEl) return
 
+  /* На медленном соединении и при экономии трафика не тянем 747 КБ three.js */
+  const connection = (navigator as Navigator & {
+    connection?: { saveData?: boolean; effectiveType?: string }
+  }).connection
+  if (
+    connection?.saveData ||
+    /(^|-)2g$/.test(connection?.effectiveType || '')
+  ) {
+    return
+  }
+
   /* Инициализация WebGL откладывается до простоя браузера (не блокирует LCP/FCP) */
   idleId = scheduleIdle(() => {
     void init(canvasEl)
