@@ -39,7 +39,7 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
                 height="640"
                 loading="lazy"
                 decoding="async"
-                onerror="this.onerror=null;this.src='images/photo.png'"
+                onerror="this.onerror=null;this.src='images/photo.jpg'"
                 class="aspect-square w-full object-cover grayscale transition-all duration-500 hover:scale-105 hover:grayscale-0"
               />
               </div>
