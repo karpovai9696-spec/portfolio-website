@@ -86,7 +86,7 @@ export default {
         },
       },
       animation: {
-        'fade-in-up': 'fade-in-up 0.7s ease-out both',
+        'fade-in-up': 'fade-in-up 0.5s ease-out both',
         float: 'float 6s ease-in-out infinite',
         marquee: 'marquee 32s linear infinite',
         blink: 'blink 1.1s step-end infinite',

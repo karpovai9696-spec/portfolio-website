@@ -80,7 +80,7 @@ function scrollToProjects() {
       <!-- Левая колонка: идентификация -->
       <div class="lg:col-span-7">
         <p
-          class="animate-fade-in-up font-mono text-xs tracking-[0.25em] text-ink-100 [animation-delay:80ms] dark:text-ink-300 sm:text-sm"
+          class="animate-fade-in-up font-mono text-xs tracking-[0.25em] text-ink-100 [animation-delay:0ms] dark:text-ink-300 sm:text-sm"
         >
           // системный инженер · казань
         </p>
@@ -113,13 +113,13 @@ function scrollToProjects() {
         </h1>
 
         <p
-          class="mt-5 animate-fade-in-up font-mono text-sm font-semibold uppercase tracking-widest text-gold [animation-delay:600ms]"
+          class="mt-5 animate-fade-in-up font-mono text-sm font-semibold uppercase tracking-widest text-gold [animation-delay:90ms]"
         >
           Full-Stack разработчик / Системный инженер
         </p>
 
         <p
-          class="mt-5 max-w-[520px] animate-fade-in-up text-base leading-relaxed text-ink-700 [animation-delay:700ms] dark:text-[#FFF5B8]/80"
+          class="mt-5 max-w-[520px] animate-fade-in-up text-base leading-relaxed text-ink-700 [animation-delay:120ms] dark:text-[#FFF5B8]/80"
         >
           Создаю сложные веб-системы, интеграции и высоконагруженные сервисы.
           Специализируюсь на автоматизации, криптографии и работе с государственными
@@ -127,7 +127,7 @@ function scrollToProjects() {
         </p>
 
         <div
-          class="mt-8 flex animate-fade-in-up flex-col gap-3 [animation-delay:800ms] sm:flex-row sm:flex-wrap"
+          class="mt-8 flex animate-fade-in-up flex-col gap-3 [animation-delay:150ms] sm:flex-row sm:flex-wrap"
         >
           <Button
             size="md"
@@ -155,7 +155,7 @@ function scrollToProjects() {
 
         <!-- Теги стека -->
         <ul
-          class="mt-8 flex animate-fade-in-up flex-wrap gap-2 [animation-delay:900ms]"
+          class="mt-8 flex animate-fade-in-up flex-wrap gap-2 [animation-delay:180ms]"
           aria-label="Ключевые технологии"
         >
           <li
@@ -169,7 +169,7 @@ function scrollToProjects() {
       </div>
 
       <!-- Правая колонка: терминал + сетевой граф -->
-      <div class="relative animate-fade-in-up [animation-delay:500ms] lg:col-span-5">
+      <div class="relative animate-fade-in-up [animation-delay:60ms] lg:col-span-5">
         <div
           class="pointer-events-none absolute -inset-10 opacity-70 sm:-inset-14"
           aria-hidden="true"
