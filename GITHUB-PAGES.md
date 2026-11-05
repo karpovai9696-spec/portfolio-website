@@ -1,7 +1,12 @@
 # Подключение GitHub Pages (зеркало сайта)
 
-Цель: сайт будет доступен по адресу `https://karpovai9696-spec.github.io/portfolio-website`
-как запасное зеркало основного https://yq2no6cpbdyom.kimi.page
+Цель: сайт доступен по адресу `https://karpovai9696-spec.github.io/portfolio-website`.
+
+Статус 05.11.2026: **это и есть основной адрес сайта** — домен
+`https://yq2no6cpbdyom.kimi.page` отдаёт 404 (проект на kimi.page недоступен),
+поэтому canonical, `og:url`, `robots.txt` и `sitemap.xml` указывают на зеркало
+GitHub Pages. Если появится рабочий домен — обновить canonical/og:url
+в `index.html` и `Sitemap` в `public/robots.txt`, `loc` в `public/sitemap.xml`.
 
 ## Почему нужны ручные шаги
 

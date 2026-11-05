@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Одностраничный сайт: URL один, основной домен — kimi.page. -->
+<!-- Одностраничный сайт: URL один, канонический адрес — зеркало GitHub Pages (домен kimi.page недоступен с 05.11.2026). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://yq2no6cpbdyom.kimi.page/</loc>
+    <loc>https://karpovai9696-spec.github.io/portfolio-website/</loc>
     <lastmod>2026-10-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
