@@ -72,7 +72,7 @@ const { target: photoParallax } = useParallax<HTMLDivElement>(0.05)
         <div ref="textBlock" class="reveal-right lg:col-span-3">
           <h3 class="text-2xl font-bold">
             {{ person.role }} <span class="text-ink-50 dark:text-ink-300">/</span>
-            <span class="text-gradient">Фрилансер</span>
+            <span class="text-gradient">&nbsp;Фрилансер</span>
           </h3>
 
           <div class="mt-5 space-y-4 leading-relaxed text-ink-700 dark:text-[#FFF5B8]/70">
