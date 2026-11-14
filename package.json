@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Сайт-визитка фрилансера Михаила Карпова — Full Stack Developer",
+  "description": "Сайт-визитка Михаила Карпова — Product Builder",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

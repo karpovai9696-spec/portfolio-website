@@ -37,7 +37,7 @@ c.drawString(x, y, "Михаил Карпов")
 y -= 9 * mm
 c.setFillColorRGB(*BLUE)
 c.setFont("Arial-Bold", 13)
-c.drawString(x, y, "Full Stack Developer")
+c.drawString(x, y, "Product Builder")
 y -= 7 * mm
 c.setFillColorRGB(*GRAY)
 c.setFont("Arial", 10)
@@ -69,20 +69,20 @@ def text(lines, size=10, gap=5.2):
 
 section("О себе")
 text([
-    "Full Stack Developer, 23 года. Разрабатываю современные веб-приложения на Vue.js и React,",
-    "специализируюсь на производительных и удобных интерфейсах. Люблю чистый код и лучшие практики.",
+    "Product Builder, 23 года. Собираю веб-продукты под ключ: от идеи и прототипа до запуска.",
+    "Веб-приложения на Vue.js и React, интеграции с API, автоматизация процессов.",
 ])
 
 section("Опыт")
 c.setFillColorRGB(*DARK)
 c.setFont("Arial-Bold", 10.5)
-c.drawString(x, y, "Full Stack Developer — Фриланс / собственные проекты")
+c.drawString(x, y, "Product Builder — Фриланс / собственные проекты")
 c.setFillColorRGB(*GRAY)
 c.setFont("Arial", 9.5)
 c.drawRightString(W - x, y, "2023 — настоящее время")
 y -= 5.5 * mm
 text([
-    "·  Разработка SPA на Vue 3/React с нуля; проектирование REST API на Node.js/Express",
+    "·  Веб-продукты под ключ: SPA на Vue 3/React, REST API на Node.js/Express",
     "·  Адаптивная вёрстка по макетам Figma; интеграция сторонних API (оплата, CRM, карты)",
     "·  Оптимизация производительности: lazy loading, code splitting",
 ], size=9.5, gap=5)

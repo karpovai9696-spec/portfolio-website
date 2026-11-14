@@ -20,21 +20,26 @@ import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import type Lenis from 'lenis'
 
 import { createLenis } from '@/composables/useLenis'
+import { usePortfolioStore } from '@/stores/portfolio'
 
 /** public/ image URL с учётом base GitHub Pages */
 const photoUrl = `${import.meta.env.BASE_URL}images/photo.webp`
 
-const KICKERS = [
-  'scene 01 — разработчик',
+const store = usePortfolioStore()
+const { person } = store
+
+/** Подписи сцен: род деятельности берётся из стора, чтобы не разъезжался. */
+const KICKERS = computed(() => [
+  `scene 01 — ${person.role.toLowerCase()}`,
   'scene 02 — код',
   'scene 03 — автоматизация',
   'scene 04 — результат',
-] as const
+])
 
 /** Индекс активной сцены — управляет текстовой колонкой (классы .active). */
 const current = ref(0)
 
-const kickerText = computed(() => KICKERS[current.value])
+const kickerText = computed(() => KICKERS.value[current.value])
 const counterText = computed(() => String(current.value + 1).padStart(2, '0'))
 
 const rootRef = ref<HTMLElement | null>(null)
@@ -154,7 +159,7 @@ onBeforeUnmount(() => {
         <div class="kicker mono">{{ kickerText }}</div>
         <div class="headline">
           <div class="h" :class="{ active: current === 0 }">
-            Михаил Карпов —<br /><span class="accent">разработчик</span>
+            {{ person.name }} —<br /><span class="accent">{{ person.role.toLowerCase() }}</span>
           </div>
           <div class="h" :class="{ active: current === 1 }">
             Пишу код,<br />который <span class="accent-gold">работает</span>
@@ -168,7 +173,8 @@ onBeforeUnmount(() => {
         </div>
         <div class="sub">
           <div class="s" :class="{ active: current === 0 }">
-            Full-stack разработчик. Сайты, веб-приложения, интеграции — от идеи до продакшена.
+            Сайты, веб-приложения, интеграции и автоматизация. Собираю продукт целиком — от идеи и
+            прототипа до запуска и поддержки.
           </div>
           <div class="s" :class="{ active: current === 1 }">
             Vue 3, TypeScript, Node.js. Чистый код, тесты, ревью — инженерная дисциплина без

@@ -82,7 +82,7 @@ function scrollToProjects() {
         <p
           class="animate-fade-in-up font-mono text-xs tracking-[0.25em] text-ink-100 [animation-delay:0ms] dark:text-ink-300 sm:text-sm"
         >
-          // системный инженер · казань
+          // {{ person.role.toLowerCase() }} · казань
         </p>
 
         <h1
@@ -115,15 +115,15 @@ function scrollToProjects() {
         <p
           class="mt-5 animate-fade-in-up font-mono text-sm font-semibold uppercase tracking-widest text-gold [animation-delay:90ms]"
         >
-          Full-Stack разработчик / Системный инженер
+          {{ person.role }}
         </p>
 
         <p
           class="mt-5 max-w-[520px] animate-fade-in-up text-base leading-relaxed text-ink-700 [animation-delay:120ms] dark:text-[#FFF5B8]/80"
         >
-          Создаю сложные веб-системы, интеграции и высоконагруженные сервисы.
-          Специализируюсь на автоматизации, криптографии и работе с государственными
-          системами (МДЛП/ГИС).
+          Собираю продукты под ключ: от идеи и прототипа до запуска и поддержки.
+          Сложные веб-системы, интеграции и автоматизация процессов — МДЛП/ГИС,
+          CRM, платёжные системы.
         </p>
 
         <div
